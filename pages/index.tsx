@@ -1,5 +1,6 @@
 import HeaderBar from "@/components/header-bar";
 import MainAdContainer from "@/components/main-ad-container";
+import SearchBox from "@/components/search-box";
 
 export default function Home() {
   return (
@@ -12,9 +13,10 @@ export default function Home() {
           imageUrl: null,
         }}
       />
-      <div className="flex justify-center">
-        <MainAdContainer imageUrl={"/main_ad_banner.png"}/>
-      </div>
+      <MainAdContainer imageUrl={"/main_ad_banner.png"} />
+      <div className="h-4"/>
+      <div className="h-4"/>
+      <SearchBox/>
     </div>
   );
 }

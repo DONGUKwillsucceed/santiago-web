@@ -6,6 +6,7 @@ interface Props {
 
 export default function MainAdContainer({ imageUrl }: Props) {
   return (
+    <div className="flex justify-center">
     <div className="w-4/5 px-8">
       <Image
         src={imageUrl}
@@ -15,6 +16,7 @@ export default function MainAdContainer({ imageUrl }: Props) {
         height={300}
         quality={100}
       />
+    </div>
     </div>
   );
 }
