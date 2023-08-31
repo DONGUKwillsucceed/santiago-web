@@ -25,6 +25,7 @@ export default function HeaderBar({ needBackButton, loginInfo }: Props) {
           <div className="w-5"/>
           <Image src="santiago.svg" alt="santiago" width={90} height={20} />
         </div>
+        <div className="flex flex-row">
         {loginInfo ? (
           <UserProfileCard
             id={loginInfo.id}
@@ -42,6 +43,8 @@ export default function HeaderBar({ needBackButton, loginInfo }: Props) {
             <p className="text-sm">Sign In / Sign Up</p>
           </Button>
         )}
+        <div className="w-5"/>
+        </div>
       </div>
     </div>
   );

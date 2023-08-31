@@ -1,9 +1,5 @@
 import HeaderBar from "@/components/header-bar";
 import MainAdContainer from "@/components/main-ad-container";
-import { Roboto } from "next/font/google";
-import Image from "next/image";
-
-const roboto = Roboto({ weight: "300", subsets: ["latin"] });
 
 export default function Home() {
   return (
