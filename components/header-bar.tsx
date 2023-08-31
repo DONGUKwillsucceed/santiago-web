@@ -8,7 +8,7 @@ interface Props {
   loginInfo: {
     id: string;
     name: string;
-    imageUrl: string;
+    imageUrl: string | null;
   } | null;
 }
 
