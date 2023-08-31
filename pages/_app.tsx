@@ -1,7 +1,7 @@
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
-import Head from "next/head";
 import HeadMeta from "../components/head-meta";
+import { CssBaseline } from "@mui/material";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -12,6 +12,7 @@ export default function App({ Component, pageProps }: AppProps) {
         url={undefined}
         image={undefined}
       />
+      <CssBaseline />
       <Component {...pageProps} />
     </>
   );

@@ -6,7 +6,7 @@ export default class MyDocument extends Document {
   render() {
     return (
       <Html>
-        <body>
+        <body className="bg-white">
           <Head></Head>
           <Main />
           <NextScript />
