@@ -1,11 +1,13 @@
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import HeadMeta from "../components/head-meta";
-import { CssBaseline } from "@mui/material";
+import { CssBaseline, ThemeProvider} from "@mui/material";
+import { theme } from "@/theme";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
+    <ThemeProvider theme={theme}>
       <HeadMeta
         title={undefined}
         description={undefined}
@@ -14,6 +16,7 @@ export default function App({ Component, pageProps }: AppProps) {
       />
       <CssBaseline />
       <Component {...pageProps} />
+      </ThemeProvider>
     </>
   );
 }
