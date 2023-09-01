@@ -1,7 +1,7 @@
 import { Button, IconButton } from "@mui/material";
 import Image from "next/image";
 import UserProfileCard from "./user-profile-container";
-import { Backspace, KeyboardArrowLeft } from "@mui/icons-material";
+import { KeyboardArrowLeft } from "@mui/icons-material";
 
 interface Props {
   needBackButton: boolean;
