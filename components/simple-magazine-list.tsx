@@ -134,7 +134,7 @@ export default function SimpleMagazineList() {
                 <div className="flex justify-between">
                   {hot.data.map((item) => (
                     <div className="flex">
-                      <div className="w-5"/>
+                      <div className="w-5" />
                       <MagazineContainer
                         id={item.id}
                         imageUrl={item.imageUrl}
@@ -147,7 +147,7 @@ export default function SimpleMagazineList() {
                         }}
                         createdAt={item.createdAt}
                       />
-                      <div className="w-5"/>
+                      <div className="w-5" />
                     </div>
                   ))}
                 </div>
@@ -155,7 +155,32 @@ export default function SimpleMagazineList() {
                 <EmptyCase />
               )
             }
-            nodeForRecent={recent.data.length ? null : <EmptyCase />}
+            nodeForRecent={
+              recent.data.length ? (
+                <div className="flex justify-between">
+                  {recent.data.map((item) => (
+                    <div className="flex">
+                      <div className="w-5" />
+                      <MagazineContainer
+                        id={item.id}
+                        imageUrl={item.imageUrl}
+                        title={item.title}
+                        writer={{
+                          id: item.writer.id,
+                          name: item.writer.name,
+                          imageUrl: item.writer.imageUrl,
+                          region: item.writer.region.name_en,
+                        }}
+                        createdAt={item.createdAt}
+                      />
+                      <div className="w-5" />
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <EmptyCase />
+              )
+            }
           />
         </div>
         <MoreButton />
