@@ -22,27 +22,29 @@ export default function MagazineContainer({
   writer,
   createdAt,
 }: Props) {
-  const thumbnailImageUrl = imageUrl ? imageUrl : "";
+  const thumbnailImageUrl = imageUrl ? imageUrl : "/santiago-default.png";
   return (
-    <div onClick={() => alert(id)}>
+    <div className="w-80 shadow-lg rounded-xl cursor-pointer" onClick={() => alert(id)}>
       <Image
+        className="rounded-t-xl"
         src={thumbnailImageUrl}
         alt="thumbnail image"
-        width={320}
-        height={250}
+        width={500}
+        height={300}
       />
-      <div>
-        <p>{title}</p>
+      <div className="px-4 py-2 text-lg font-medium">
+        {title}
       </div>
-      <div className="flex justify-between">
+      <div className="flex justify-between px-4">
         <UserProfileCard
           id={writer.id}
           name={writer.name}
           region={writer.region}
           imageUrl={writer.imageUrl}
         />
-        <p>{createdAt}</p>
+        <div className="text-xs text-gray-400 grid place-items-center">{createdAt}</div>
       </div>
+      <div className="h-3"/>
     </div>
   );
 }

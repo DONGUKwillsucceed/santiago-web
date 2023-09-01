@@ -19,16 +19,90 @@ export default function SimpleMagazineList() {
 
   const fetchDataForHot = async () => {
     const data: MultiMagazineLineDto = {
-      data: [],
-      total: 0,
+      data: [
+        {
+          id: "abcd",
+          imageUrl: null,
+          title: "서울에서 예토전생",
+          createdAt: "2023.10.09",
+          writer: {
+            id: "abcd",
+            name: "김동욱",
+            imageUrl: null,
+            region: {
+              id: "abcd",
+              name_en: "korea",
+              name_hk: "korea",
+              name_jp: "korea",
+              name_kr: "korea",
+            },
+          },
+        },
+        {
+          id: "abcd",
+          imageUrl: null,
+          title: "서울에서 예토전생",
+          createdAt: "2023.10.09",
+          writer: {
+            id: "abcd",
+            name: "김동욱",
+            imageUrl: null,
+            region: {
+              id: "abcd",
+              name_en: "korea",
+              name_hk: "korea",
+              name_jp: "korea",
+              name_kr: "korea",
+            },
+          },
+        },
+        {
+          id: "abcd",
+          imageUrl: null,
+          title: "서울에서 예토전생",
+          createdAt: "2023.10.09",
+          writer: {
+            id: "abcd",
+            name: "김동욱",
+            imageUrl: null,
+            region: {
+              id: "abcd",
+              name_en: "korea",
+              name_hk: "korea",
+              name_jp: "korea",
+              name_kr: "korea",
+            },
+          },
+        },
+      ],
+      total: 3,
     };
     return data;
   };
 
   const fetchDataForRecent = async () => {
     const data: MultiMagazineLineDto = {
-      data: [],
-      total: 0,
+      data: [
+        {
+          id: "abcd",
+          imageUrl: null,
+          title: "서울에서 예토전생",
+          createdAt: "2023.10.09",
+          writer: {
+            id: "abcd",
+            name: "김동욱",
+            imageUrl: null,
+            region: {
+              id: "abcd",
+              name_en: "korea",
+              name_hk: "korea",
+              name_jp: "korea",
+              name_kr: "korea",
+            },
+          },
+        },
+      ],
+      total: 1,
     };
     return data;
   };
@@ -55,8 +129,33 @@ export default function SimpleMagazineList() {
           <BasicTabs
             value={value}
             handleChange={handleChange}
-            nodeForHot={hot.data.length ? null: <EmptyCase/>}
-            nodeForRecent={recent.data.length ? null : <EmptyCase/>}
+            nodeForHot={
+              hot.data.length ? (
+                <div className="flex justify-between">
+                  {hot.data.map((item) => (
+                    <div className="flex">
+                      <div className="w-5"/>
+                      <MagazineContainer
+                        id={item.id}
+                        imageUrl={item.imageUrl}
+                        title={item.title}
+                        writer={{
+                          id: item.writer.id,
+                          name: item.writer.name,
+                          imageUrl: item.writer.imageUrl,
+                          region: item.writer.region.name_en,
+                        }}
+                        createdAt={item.createdAt}
+                      />
+                      <div className="w-5"/>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <EmptyCase />
+              )
+            }
+            nodeForRecent={recent.data.length ? null : <EmptyCase />}
           />
         </div>
         <MoreButton />
