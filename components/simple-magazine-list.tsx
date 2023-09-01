@@ -163,22 +163,22 @@ export default function SimpleMagazineList() {
               recent.data.length ? (
                 <div className="flex justify-between flex-wrap">
                   {recent.data.map((item) => (
-                    <div className="flex">
-                      <div className="w-5" />
-                      <MagazineContainer
-                        id={item.id}
-                        imageUrl={item.imageUrl}
-                        title={item.title}
-                        writer={{
-                          id: item.writer.id,
-                          name: item.writer.name,
-                          imageUrl: item.writer.imageUrl,
-                          region: item.writer.region.name_en,
-                        }}
-                        createdAt={item.createdAt}
-                      />
-                      <div className="w-5" />
-                    </div>
+                    <div className="flex  pb-5" key={item.id}>
+                    <div className="w-4" />
+                    <MagazineContainer
+                      id={item.id}
+                      imageUrl={item.imageUrl}
+                      title={item.title}
+                      writer={{
+                        id: item.writer.id,
+                        name: item.writer.name,
+                        imageUrl: item.writer.imageUrl,
+                        region: regionSelector(item.writer.region, window.navigator.language),
+                      }}
+                      createdAt={item.createdAt}
+                    />
+                    <div className="w-4" />
+                  </div>
                   ))}
                 </div>
               ) : (
