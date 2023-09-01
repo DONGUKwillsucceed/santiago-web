@@ -5,6 +5,7 @@ import MoreButton from "./more-button";
 import BasicTabs from "./tap-panel";
 import { MultiMagazineLineDto } from "@/api/dto/magazine/multi-magazine-line.dto";
 import EmptyCase from "./empty-case";
+import { regionSelector } from "@/util/region-selector";
 
 export default function SimpleMagazineList() {
   const [value, setValue] = React.useState(0);
@@ -34,7 +35,7 @@ export default function SimpleMagazineList() {
               name_en: "korea",
               name_hk: "korea",
               name_jp: "korea",
-              name_kr: "korea",
+              name_kr: "대한민국",
             },
           },
         },
@@ -52,7 +53,7 @@ export default function SimpleMagazineList() {
               name_en: "korea",
               name_hk: "korea",
               name_jp: "korea",
-              name_kr: "korea",
+              name_kr: "대한민국",
             },
           },
         },
@@ -68,9 +69,9 @@ export default function SimpleMagazineList() {
             region: {
               id: "abcd",
               name_en: "korea",
-              name_hk: "korea",
-              name_jp: "korea",
-              name_kr: "korea",
+              name_hk: "korea1",
+              name_jp: "korea2",
+              name_kr: "대한민국",
             },
           },
         },
@@ -95,8 +96,8 @@ export default function SimpleMagazineList() {
             region: {
               id: "abcd",
               name_en: "korea",
-              name_hk: "korea",
-              name_jp: "korea",
+              name_hk: "korea1",
+              name_jp: "korea2",
               name_kr: "korea",
             },
           },
@@ -121,6 +122,7 @@ export default function SimpleMagazineList() {
     fetchDataForRecent().then((res) => setRecent(res));
   };
 
+
   return (
     <div className="flex justify-center">
       <div className="w-4/5 px-8">
@@ -131,10 +133,10 @@ export default function SimpleMagazineList() {
             handleChange={handleChange}
             nodeForHot={
               hot.data.length ? (
-                <div className="flex justify-between">
+                <div className="flex justify-start flex-wrap">
                   {hot.data.map((item) => (
-                    <div className="flex">
-                      <div className="w-5" />
+                    <div className="flex  pb-5" key={item.id}>
+                      <div className="w-4" />
                       <MagazineContainer
                         id={item.id}
                         imageUrl={item.imageUrl}
@@ -143,11 +145,11 @@ export default function SimpleMagazineList() {
                           id: item.writer.id,
                           name: item.writer.name,
                           imageUrl: item.writer.imageUrl,
-                          region: item.writer.region.name_en,
+                          region: regionSelector(item.writer.region, window.navigator.language),
                         }}
                         createdAt={item.createdAt}
                       />
-                      <div className="w-5" />
+                      <div className="w-4" />
                     </div>
                   ))}
                 </div>
@@ -157,7 +159,7 @@ export default function SimpleMagazineList() {
             }
             nodeForRecent={
               recent.data.length ? (
-                <div className="flex justify-between">
+                <div className="flex justify-between flex-wrap">
                   {recent.data.map((item) => (
                     <div className="flex">
                       <div className="w-5" />
