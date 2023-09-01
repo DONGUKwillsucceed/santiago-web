@@ -9,6 +9,7 @@ import { regionSelector } from "@/util/region-selector";
 
 export default function SimpleMagazineList() {
   const [value, setValue] = React.useState(0);
+  const [isGlobal, setIsGlobal] = React.useState(false);
   const [hot, setHot] = React.useState<MultiMagazineLineDto>({
     data: [],
     total: 0,
@@ -131,6 +132,7 @@ export default function SimpleMagazineList() {
           <BasicTabs
             value={value}
             handleChange={handleChange}
+            setIsGlobal={setIsGlobal}
             nodeForHot={
               hot.data.length ? (
                 <div className="flex justify-start flex-wrap">
