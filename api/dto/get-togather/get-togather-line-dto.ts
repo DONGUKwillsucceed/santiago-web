@@ -4,6 +4,8 @@ export interface GetTogatherLineDto {
 	content: string;
 	from: string | null;
 	to: string | null;
+    imageUrl: string | null;
 	memberCount: number;
-	memberCapacity: number;
+	memberCapacity: number | null;
+    isRecruitting: boolean;
 }
