@@ -23,9 +23,6 @@ export default function Home() {
       <div className="h-14"/>
       <SimpleMagazineList/>
       <div className="h-14"/>
-      <SimpleAgoraList/>
-      <div className="h-14"/>
-      <SimpleGetTogatherList/>
     </div>
   );
 }

@@ -1,12 +1,20 @@
-import { MultiMagazineLineDto } from "@/api/dto/magazine/multi-magazine-line.dto";
-import { Box, Tab, Tabs, Typography } from "@mui/material";
-import React, { useEffect } from "react";
-import EmptyCase from "./empty-case";
+import { Box, Tab, Tabs } from "@mui/material";
+import React from "react";
 
 interface TabPanelProps {
   children?: React.ReactNode;
   index: number;
   value: number;
+}
+
+interface Props {
+  value: number;
+  handleChange: (
+    event: React.SyntheticEvent,
+    newValue: number
+  ) => Promise<void>;
+  nodeForHot: React.ReactNode;
+  nodeForRecent: React.ReactNode;
 }
 
 function CustomTabPanel(props: TabPanelProps) {
@@ -20,11 +28,7 @@ function CustomTabPanel(props: TabPanelProps) {
       aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          {children}
-        </Box>
-      )}
+      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
     </div>
   );
 }
@@ -36,45 +40,7 @@ function a11yProps(index: number) {
   };
 }
 
-export default function BasicTabs() {
-  const [value, setValue] = React.useState(0);
-  const [hot, setHot] = React.useState<MultiMagazineLineDto>({
-    data: [],
-    total: 0,
-  });
-  const [recent, setRecent] = React.useState<MultiMagazineLineDto>({
-    data: [],
-    total: 0
-  });
-
-  
-  const fetchDataForHot = async () => {
-    const data: MultiMagazineLineDto = {
-      data: [],
-      total: 0,
-    };
-    return data;
-  };
-
-  const fetchDataForRecent = async () => {
-    const data: MultiMagazineLineDto = {
-      data: [],
-      total: 0,
-    };
-    return data;
-  };
-
-  useEffect(() => {
-    fetchDataForHot().then((res) => setHot(res));
-    fetchDataForRecent().then((res) => setRecent(res));
-  }, []);
-  
-
-  const handleChange = async (event: React.SyntheticEvent, newValue: number) => {  
-    setValue(newValue);
-    fetchDataForHot().then((res) => setHot(res));
-    fetchDataForRecent().then((res) => setRecent(res));
-  };
+export default function BasicTabs({ nodeForHot, nodeForRecent, value, handleChange }: Props) {
   return (
     <Box sx={{ width: "100%" }}>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
@@ -88,10 +54,10 @@ export default function BasicTabs() {
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
-        {hot.data.length ? null : <EmptyCase/>}
+        {nodeForHot}
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        {recent.data.length ? null : <EmptyCase/>}
+        {nodeForRecent}
       </CustomTabPanel>
     </Box>
   );

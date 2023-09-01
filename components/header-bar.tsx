@@ -30,6 +30,7 @@ export default function HeaderBar({ needBackButton, loginInfo }: Props) {
           <UserProfileCard
             id={loginInfo.id}
             name={loginInfo.name}
+            region={null}
             imageUrl={loginInfo.imageUrl}
           />
         ) : (
