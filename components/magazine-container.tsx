@@ -1,4 +1,3 @@
-import { UserLineDto } from "@/api/dto/user/user-line.dto";
 import Image from "next/image";
 import UserProfileCard from "./user-profile-container";
 
