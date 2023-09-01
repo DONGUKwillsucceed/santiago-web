@@ -32,7 +32,7 @@ export default function MagazineContainer({
         width={500}
         height={300}
       />
-      <div className="px-4 py-2 text-lg font-medium">
+      <div className="px-4 py-2 text-base font-medium truncate">
         {title}
       </div>
       <div className="flex justify-between px-4">

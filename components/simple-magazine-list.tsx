@@ -25,7 +25,7 @@ export default function SimpleMagazineList() {
         {
           id: "abcd",
           imageUrl: null,
-          title: "서울에서 예토전생",
+          title: "개발자가 가장 많이 읽은 아티클은 무엇일까?",
           createdAt: "2023.10.09",
           writer: {
             id: "abcd",
