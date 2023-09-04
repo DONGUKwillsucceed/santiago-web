@@ -23,10 +23,10 @@ export default function LanguageToggleButton({ setIsGlobal }: Props) {
   };
 
   const children = [
-    <ToggleButton value="home" key="left">
+    <ToggleButton value="home" key="left" sx={{border: 'none'}}>
       <House />
     </ToggleButton>,
-    <ToggleButton value="global" key="center">
+    <ToggleButton value="global" key="center" sx={{border: 'none'}}>
       <Public />
     </ToggleButton>,
   ];
