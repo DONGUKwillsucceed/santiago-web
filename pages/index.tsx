@@ -13,11 +13,11 @@ export default function Home() {
           imageUrl: null,
         }}
       />
-      <div className="h-14"/>
+      <div className="lg:h-14 h-8"/>
       <SearchBox/>
-      <div className="h-14"/>
+      <div className="lg:h-14 h-8"/>
       <SimpleMagazineList/>
-      <div className="h-14"/>
+      <div className="lg:h-14 h-8"/>
 
     </div>
   );
