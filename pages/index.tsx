@@ -12,7 +12,7 @@ export default function Home() {
   const [queryType, setQueryType] = useState("hot");
   const [base, setBase] = useState(0);
   const [limit, setLimit] = useState(12);
-  const [isGlobal, setIsGlobal] = useState(true);
+  const [isGlobal, setIsGlobal] = useState(false);
   const [search, setSearch] = useState<string | null>(null);
   const [hotMagazineList, setHotMagazineList] = useState<MultiMagazineLineDto>({
     data: [],
@@ -29,7 +29,7 @@ export default function Home() {
       return magazineService.findMany(
         regionId,
         queryType,
-        isGlobal ? window.navigator.language : null,
+        isGlobal ? null : window.navigator.language,
         base,
         limit,
         search
@@ -43,7 +43,7 @@ export default function Home() {
         setRecentMagazineList(data);
       }
     });
-  }, [queryType, regionId, base, limit]);
+  }, [queryType, regionId, base, limit, isGlobal]);
 
   const searchData = async () => {
     console.log('search');
@@ -51,7 +51,7 @@ export default function Home() {
       .findMany(
         regionId,
         queryType,
-        isGlobal ? window.navigator.language : null,
+        isGlobal ? null : window.navigator.language,
         base,
         limit,
         search
