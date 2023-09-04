@@ -1,7 +1,8 @@
-import axios from "axios";
+import axios, { HttpStatusCode } from "axios";
 import { serverUrl } from "../url";
 import { MultiMagazineLineDto } from "../dto/magazine/multi-magazine-line.dto";
 import { NetworkError } from "@/error/network-error";
+import { NotFoundError } from "@/error/notfound-error";
 
 class MagazineService {
   private url = `${serverUrl}/magazine`;
@@ -9,15 +10,26 @@ class MagazineService {
   async findMany(
     regionId: string,
     queryType: string,
+    lang: string | null,
     base: number,
-    offset: number
+    limit: number
   ) {
     try {
-      return axios.get<MultiMagazineLineDto>(
-        `${this.url}?region-id=${regionId}&query-type=${queryType}&base=${base}&offset=${offset}`
-      );
+      let url = `${this.url}?region-id=${regionId}&query-type=${queryType}&base=${base}&limit=${limit}`;
+      if (lang) {
+        url += `&lang=${lang}`;
+      }
+      const res = await axios.get<MultiMagazineLineDto>(url);
+
+      if (res.status == HttpStatusCode.Ok) {
+        return res.data;
+      } else if (res.status == HttpStatusCode.NotFound) {
+        throw new NotFoundError("Not Found");
+      } else {
+        throw new Error();
+      }
     } catch (err) {
-      throw new NetworkError("network error occur");
+      throw new NetworkError(err as string);
     }
   }
 }
