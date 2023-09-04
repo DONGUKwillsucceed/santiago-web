@@ -180,19 +180,18 @@ export default function SimpleMagazineList() {
 
   return (
     <div className="flex justify-center">
-      <div className="w-4/5 px-8">
-        <MainTitleContainer title={"Mazagine"} />
-        <div className="px-3">
+      <div className="w-full max-w-7xl px-1">
+        <div>
           <BasicTabs
             value={value}
             handleChange={handleChange}
             setIsGlobal={setIsGlobal}
             nodeForHot={
               hot.data.length ? (
-                <div className="flex justify-start flex-wrap">
+                <div className="flex justify-center flex-wrap">
                   {hot.data.map((item) => (
-                    <div className="flex  pb-8" key={item.id}>
-                      <div className="w-4" />
+                    <div className="flex pb-8" key={item.id}>
+                      <div className="w-4"/>
                       <MagazineContainer
                         id={item.id}
                         imageUrl={item.imageUrl}
@@ -218,7 +217,6 @@ export default function SimpleMagazineList() {
                 <div className="flex justify-between flex-wrap">
                   {recent.data.map((item) => (
                     <div className="flex  pb-5" key={item.id}>
-                    <div className="w-4" />
                     <MagazineContainer
                       id={item.id}
                       imageUrl={item.imageUrl}
@@ -231,7 +229,7 @@ export default function SimpleMagazineList() {
                       }}
                       createdAt={item.createdAt}
                     />
-                    <div className="w-4" />
+                    <div className="w-8" />
                   </div>
                   ))}
                 </div>
@@ -241,7 +239,6 @@ export default function SimpleMagazineList() {
             }
           />
         </div>
-        <MoreButton />
       </div>
     </div>
   );
