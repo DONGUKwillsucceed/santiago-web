@@ -12,12 +12,16 @@ class MagazineService {
     queryType: string,
     lang: string | null,
     base: number,
-    limit: number
+    limit: number,
+    search: string | null
   ) {
     try {
       let url = `${this.url}?region-id=${regionId}&query-type=${queryType}&base=${base}&limit=${limit}`;
       if (lang) {
         url += `&lang=${lang}`;
+      }
+      if (search) {
+        url += `&search=${search}`;
       }
       const res = await axios.get<MultiMagazineLineDto>(url);
 

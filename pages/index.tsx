@@ -13,6 +13,7 @@ export default function Home() {
   const [base, setBase] = useState(0);
   const [limit, setLimit] = useState(12);
   const [isGlobal, setIsGlobal] = useState(true);
+  const [search, setSearch] = useState<string | null>(null);
   const [hotMagazineList, setHotMagazineList] = useState<MultiMagazineLineDto>({
     data: [],
     total: 0,
@@ -25,7 +26,14 @@ export default function Home() {
 
   useEffect(() => {
     const fetchData = async () => {
-      return magazineService.findMany(regionId, queryType, isGlobal? window.navigator.language : null, base, limit);
+      return magazineService.findMany(
+        regionId,
+        queryType,
+        isGlobal ? window.navigator.language : null,
+        base,
+        limit,
+        search
+      );
     };
 
     fetchData().then((data) => {
@@ -35,35 +43,27 @@ export default function Home() {
         setRecentMagazineList(data);
       }
     });
-  }, []);
+  }, [queryType, regionId, base, limit]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      return magazineService.findMany(regionId, queryType, isGlobal? window.navigator.language : null, base, limit);
-    };
-
-    fetchData().then((data) => {
-      if (queryType == "hot") {
-        setHotMagazineList(data);
-      } else {
-        setRecentMagazineList(data);
-      }
-    });
-  }, [queryType, regionId]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      return magazineService.findMany(regionId, queryType, isGlobal? window.navigator.language : null, base, limit);
-    };
-
-    fetchData().then((data) => {
-      if (queryType == "hot") {
-        setHotMagazineList(data);
-      } else {
-        setRecentMagazineList(data);
-      }
-    });
-  }, [base, limit]);
+  const searchData = async () => {
+    console.log('search');
+    return magazineService
+      .findMany(
+        regionId,
+        queryType,
+        isGlobal ? window.navigator.language : null,
+        base,
+        limit,
+        search
+      )
+      .then((data) => {
+        if (queryType == "hot") {
+          setHotMagazineList(data);
+        } else {
+          setRecentMagazineList(data);
+        }
+      });
+  };
 
   return (
     <div>
@@ -76,7 +76,7 @@ export default function Home() {
         }}
       />
       <div className="lg:h-14 h-8" />
-      <SearchBox />
+      <SearchBox setRegionId={setRegionId} setSearch={setSearch} searchData={searchData}/>
       <div className="lg:h-14 h-8" />
       <SimpleMagazineList
         queryType={queryType}
