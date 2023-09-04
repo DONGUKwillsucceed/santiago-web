@@ -76,8 +76,62 @@ export default function SimpleMagazineList() {
             },
           },
         },
+        {
+          id: "abcd",
+          imageUrl: null,
+          title: "서울에서 예토전생",
+          createdAt: "2023.10.09",
+          writer: {
+            id: "abcd",
+            name: "김동욱",
+            imageUrl: null,
+            region: {
+              id: "abcd",
+              name_en: "korea",
+              name_hk: "korea1",
+              name_jp: "korea2",
+              name_kr: "대한민국",
+            },
+          },
+        },
+        {
+          id: "abcd",
+          imageUrl: null,
+          title: "서울에서 예토전생",
+          createdAt: "2023.10.09",
+          writer: {
+            id: "abcd",
+            name: "김동욱",
+            imageUrl: null,
+            region: {
+              id: "abcd",
+              name_en: "korea",
+              name_hk: "korea1",
+              name_jp: "korea2",
+              name_kr: "대한민국",
+            },
+          },
+        },
+        {
+          id: "abcd",
+          imageUrl: null,
+          title: "서울에서 예토전생",
+          createdAt: "2023.10.09",
+          writer: {
+            id: "abcd",
+            name: "김동욱",
+            imageUrl: null,
+            region: {
+              id: "abcd",
+              name_en: "korea",
+              name_hk: "korea1",
+              name_jp: "korea2",
+              name_kr: "대한민국",
+            },
+          },
+        },
       ],
-      total: 3,
+      total: 6,
     };
     return data;
   };
@@ -137,7 +191,7 @@ export default function SimpleMagazineList() {
               hot.data.length ? (
                 <div className="flex justify-start flex-wrap">
                   {hot.data.map((item) => (
-                    <div className="flex  pb-5" key={item.id}>
+                    <div className="flex  pb-8" key={item.id}>
                       <div className="w-4" />
                       <MagazineContainer
                         id={item.id}
