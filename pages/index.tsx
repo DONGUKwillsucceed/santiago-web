@@ -60,7 +60,6 @@ export default function Home() {
   }, []);
 
   const searchData = async () => {
-    console.log("search");
     return magazineService
       .findMany(
         regionId,
@@ -83,11 +82,7 @@ export default function Home() {
     <div>
       <HeaderBar
         needBackButton={false}
-        loginInfo={{
-          id: "abc",
-          name: "Andrew",
-          imageUrl: null,
-        }}
+        loginInfo={null}
       />
       <div className="lg:h-14 h-8" />
       <SearchBox
