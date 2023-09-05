@@ -1,5 +1,7 @@
 import { MultiMagazineLineDto } from "@/api/dto/magazine/multi-magazine-line.dto";
+import { RegionDto } from "@/api/dto/user/region.dto";
 import { magazineService } from "@/api/magazine/magazine";
+import { regionService } from "@/api/region/region";
 import HeaderBar from "@/components/header-bar";
 import SearchBox from "@/components/search-box";
 import SimpleMagazineList from "@/components/simple-magazine-list";
@@ -14,6 +16,7 @@ export default function Home() {
   const [limit, setLimit] = useState(12);
   const [isGlobal, setIsGlobal] = useState(false);
   const [search, setSearch] = useState<string | null>(null);
+  const [regions, setRegions] = useState<RegionDto[]>([]);
   const [hotMagazineList, setHotMagazineList] = useState<MultiMagazineLineDto>({
     data: [],
     total: 0,
@@ -25,7 +28,7 @@ export default function Home() {
     });
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchMagazine = async () => {
       return magazineService.findMany(
         regionId,
         queryType,
@@ -36,7 +39,7 @@ export default function Home() {
       );
     };
 
-    fetchData().then((data) => {
+    fetchMagazine().then((data) => {
       if (queryType == "hot") {
         setHotMagazineList(data);
       } else {
@@ -45,8 +48,19 @@ export default function Home() {
     });
   }, [queryType, regionId, base, limit, isGlobal]);
 
+
+  useEffect(() => {
+    const fetchRegion = async () => {
+      return regionService.findMany();
+    };
+
+    fetchRegion().then((data) => {
+      setRegions(data);
+    });
+  }, []);
+
   const searchData = async () => {
-    console.log('search');
+    console.log("search");
     return magazineService
       .findMany(
         regionId,
@@ -76,7 +90,12 @@ export default function Home() {
         }}
       />
       <div className="lg:h-14 h-8" />
-      <SearchBox setRegionId={setRegionId} setSearch={setSearch} searchData={searchData}/>
+      <SearchBox
+        setRegionId={setRegionId}
+        setSearch={setSearch}
+        searchData={searchData}
+        regions={regions}
+      />
       <div className="lg:h-14 h-8" />
       <SimpleMagazineList
         queryType={queryType}

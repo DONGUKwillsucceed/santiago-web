@@ -9,4 +9,5 @@ export interface RegionDto {
     name_vi: string,
     name_ge: string,
     name_it: string,
+    flag: string
 }
