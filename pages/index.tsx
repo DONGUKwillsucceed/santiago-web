@@ -27,56 +27,56 @@ export default function Home() {
       total: 0,
     });
 
-  useEffect(() => {
-    const fetchMagazine = async () => {
-      return magazineService.findMany(
-        regionId,
-        queryType,
-        isGlobal ? null : window.navigator.language,
-        base,
-        limit,
-        search
-      );
-    };
+  // useEffect(() => {
+  //   const fetchMagazine = async () => {
+  //     return magazineService.findMany(
+  //       regionId,
+  //       queryType,
+  //       isGlobal ? null : window.navigator.language,
+  //       base,
+  //       limit,
+  //       search
+  //     );
+  //   };
 
-    fetchMagazine().then((data) => {
-      if (queryType == "hot") {
-        setHotMagazineList(data);
-      } else {
-        setRecentMagazineList(data);
-      }
-    });
-  }, [queryType, regionId, base, limit, isGlobal]);
+  //   fetchMagazine().then((data) => {
+  //     if (queryType == "hot") {
+  //       setHotMagazineList(data);
+  //     } else {
+  //       setRecentMagazineList(data);
+  //     }
+  //   });
+  // }, [queryType, regionId, base, limit, isGlobal]);
 
 
-  useEffect(() => {
-    const fetchRegion = async () => {
-      return regionService.findMany();
-    };
+  // useEffect(() => {
+  //   const fetchRegion = async () => {
+  //     return regionService.findMany();
+  //   };
 
-    fetchRegion().then((data) => {
-      setRegions(data);
-    });
-  }, []);
+  //   fetchRegion().then((data) => {
+  //     setRegions(data);
+  //   });
+  // }, []);
 
-  const searchData = async () => {
-    return magazineService
-      .findMany(
-        regionId,
-        queryType,
-        isGlobal ? null : window.navigator.language,
-        base,
-        limit,
-        search
-      )
-      .then((data) => {
-        if (queryType == "hot") {
-          setHotMagazineList(data);
-        } else {
-          setRecentMagazineList(data);
-        }
-      });
-  };
+  // const searchData = async () => {
+  //   return magazineService
+  //     .findMany(
+  //       regionId,
+  //       queryType,
+  //       isGlobal ? null : window.navigator.language,
+  //       base,
+  //       limit,
+  //       search
+  //     )
+  //     .then((data) => {
+  //       if (queryType == "hot") {
+  //         setHotMagazineList(data);
+  //       } else {
+  //         setRecentMagazineList(data);
+  //       }
+  //     });
+  // };
 
   return (
     <div>
@@ -84,24 +84,6 @@ export default function Home() {
         needBackButton={false}
         loginInfo={null}
       />
-      <div className="lg:h-14 h-8" />
-      <SearchBox
-        setRegionId={setRegionId}
-        setSearch={setSearch}
-        searchData={searchData}
-        regions={regions}
-      />
-      <div className="lg:h-14 h-8" />
-      <SimpleMagazineList
-        queryType={queryType}
-        setQueryType={setQueryType}
-        setBase={setBase}
-        setLimit={setLimit}
-        setIsGlobal={setIsGlobal}
-        hotMagazineList={hotMagazineList}
-        recentMagazineList={recentMagazineList}
-      />
-      <div className="lg:h-14 h-8" />
     </div>
   );
 }

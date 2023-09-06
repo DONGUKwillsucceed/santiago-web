@@ -22,29 +22,29 @@ export default function HeaderBar({ needBackButton, loginInfo }: Props) {
               <KeyboardArrowLeft />
             </IconButton>
           ) : null}
-          <div className="w-5"/>
+          <div className="w-5" />
           <Image src="santiago.svg" alt="santiago" width={90} height={20} />
         </div>
         <div className="flex flex-row">
-        {loginInfo ? (
-          <UserProfileCard
-            id={loginInfo.id}
-            name={loginInfo.name}
-            region={null}
-            imageUrl={loginInfo.imageUrl}
-          />
-        ) : (
-          <Button
-            color="primary"
-            size="small"
-            onClick={() => {
-              alert("clicked");
-            }}
-          >
-            <p className="text-sm">Sign In / Sign Up</p>
-          </Button>
-        )}
-        <div className="w-5"/>
+          {loginInfo ? (
+            <UserProfileCard
+              id={loginInfo.id}
+              name={loginInfo.name}
+              region={null}
+              imageUrl={loginInfo.imageUrl}
+            />
+          ) : (
+            <Button
+              color="primary"
+              size="small"
+              onClick={() => {
+                alert("clicked");
+              }}
+            >
+              Sign In
+            </Button>
+          )}
+          <div className="w-5" />
         </div>
       </div>
     </div>
