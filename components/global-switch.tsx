@@ -13,7 +13,7 @@ export default function GlobalSwitch({ isGlobal, setIsGlobal }: Props) {
       };
   return (
     <div className="flex justify-between items-center">
-      <div className="text-[#525252]">🌐 Global</div>
+      <div className="text-[#525252] text-[14px]">🌐 Global</div>
       <div><Switch checked={isGlobal} onChange={switchHandler}/></div>
     </div>
   );
