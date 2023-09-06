@@ -2,7 +2,9 @@ import { MultiMagazineLineDto } from "@/api/dto/magazine/multi-magazine-line.dto
 import { RegionDto } from "@/api/dto/user/region.dto";
 import { magazineService } from "@/api/magazine/magazine";
 import { regionService } from "@/api/region/region";
+import GlobalSwitch from "@/components/global-switch";
 import HeaderBar from "@/components/header-bar";
+import RegionDropDownBox from "@/components/region-drop-box";
 import SearchBox from "@/components/search-box";
 import SimpleMagazineList from "@/components/simple-magazine-list";
 import { SetStateAction, useEffect, useState } from "react";
@@ -86,10 +88,16 @@ export default function Home() {
       />
       <div className="flex justify-center">
       <div className="w-[64rem] flex justify-between">
-        <div className="w-[16rem] py-3">
-          status bar
+        <div className="w-[16rem] py-6">
+          <div className="w-full bg-white rounded-xl">
+            <RegionDropDownBox regions={regions} setRegionId={setRegionId}/>
+          </div>
+          <div className="h-3"/>
+          <div className="w-full bg-white rounded-xl px-3">
+            <GlobalSwitch isGlobal={isGlobal} setIsGlobal={setIsGlobal}/>
+          </div>
         </div>
-        <div className="w-[42rem] py-3">
+        <div className="w-[42rem] py-6">
           <SearchBox setSearch={setSearch} searchData={searchData}/>
         </div>
       </div>

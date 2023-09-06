@@ -38,6 +38,9 @@ export default function RegionDropDownBox({ regions, setRegionId }: Props) {
         sx={{
           boxShadow: "none",
           ".MuiOutlinedInput-notchedOutline": { border: 0 },
+          "&.Mui-focused .MuiOutlinedInput-notchedOutline" : {border: 0},
+          height: 42,
+          
         }}
         defaultValue={defaultRegion.id}
         inputProps={{
