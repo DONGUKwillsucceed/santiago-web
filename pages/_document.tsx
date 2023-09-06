@@ -5,8 +5,8 @@ import { ServerStyleSheets } from "@mui/styles";
 export default class MyDocument extends Document {
   render() {
     return (
-      <Html>
-        <body className="bg-white">
+      <Html className="bg-gray-100">
+        <body className="bg-gray-200">
           <Head></Head>
           <Main />
           <NextScript />

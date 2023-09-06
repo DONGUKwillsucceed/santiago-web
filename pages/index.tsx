@@ -5,7 +5,7 @@ import { regionService } from "@/api/region/region";
 import HeaderBar from "@/components/header-bar";
 import SearchBox from "@/components/search-box";
 import SimpleMagazineList from "@/components/simple-magazine-list";
-import { useEffect, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 
 export default function Home() {
   const [regionId, setRegionId] = useState(
@@ -59,24 +59,24 @@ export default function Home() {
   //   });
   // }, []);
 
-  // const searchData = async () => {
-  //   return magazineService
-  //     .findMany(
-  //       regionId,
-  //       queryType,
-  //       isGlobal ? null : window.navigator.language,
-  //       base,
-  //       limit,
-  //       search
-  //     )
-  //     .then((data) => {
-  //       if (queryType == "hot") {
-  //         setHotMagazineList(data);
-  //       } else {
-  //         setRecentMagazineList(data);
-  //       }
-  //     });
-  // };
+  const searchData = async () => {
+    return magazineService
+      .findMany(
+        regionId,
+        queryType,
+        isGlobal ? null : window.navigator.language,
+        base,
+        limit,
+        search
+      )
+      .then((data) => {
+        if (queryType == "hot") {
+          setHotMagazineList(data);
+        } else {
+          setRecentMagazineList(data);
+        }
+      });
+  };
 
   return (
     <div>
@@ -84,6 +84,17 @@ export default function Home() {
         needBackButton={false}
         loginInfo={null}
       />
+      <div className="flex justify-center">
+      <div className="w-[64rem] flex justify-between">
+        <div className="w-[16rem] py-3">
+          status bar
+        </div>
+        <div className="w-[42rem] py-3">
+          <SearchBox setSearch={setSearch} searchData={searchData}/>
+        </div>
+      </div>
+      </div>
+      
     </div>
   );
 }

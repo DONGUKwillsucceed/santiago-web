@@ -5,18 +5,16 @@ import { Dispatch, SetStateAction } from "react";
 import RegionDropDownBox from "./region-drop-box";
 
 interface Props {
-    setRegionId: Dispatch<SetStateAction<string>>;
     setSearch: Dispatch<SetStateAction<string | null>>;
     searchData: () => Promise<void>;
-    regions: RegionDto[]
 }
 
-export default function SearchBox({setRegionId, setSearch, searchData, regions}: Props) {
+export default function SearchBox({setSearch, searchData}: Props) {
 
     return (
         <div className="grid place-items-center">
-            <div className="w-full max-w-3xl px-8 min-w-min flex justify-center items-center">
-                <div className="w-full lg:h-14 md:h-10 border rounded-full shadow-lg flex px-6">
+            <div className="w-[32rem] flex justify-center items-center">
+                <div className="w-full lg:h-12 md:h-10 rounded-full flex px-6 bg-white">
                     <input className="outline focus:outline-0 outline-0 w-full" onChange={(e)=> {setSearch(e.target.value)}}/>
                     <IconButton onClick={searchData}>
                         <Search/>
