@@ -96,6 +96,7 @@ export default function Home() {
           <div className="w-full bg-white rounded-xl px-3">
             <GlobalSwitch isGlobal={isGlobal} setIsGlobal={setIsGlobal}/>
           </div>
+          <div className="h-6"/>
         </div>
         <div className="w-[42rem] py-6">
           <SearchBox setSearch={setSearch} searchData={searchData}/>
