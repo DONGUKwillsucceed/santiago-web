@@ -1,4 +1,4 @@
-import { FormControlLabel, SelectChangeEvent, Switch } from "@mui/material";
+import { Switch } from "@mui/material";
 import { ChangeEvent, Dispatch, SetStateAction } from "react";
 
 interface Props {

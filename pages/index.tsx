@@ -2,6 +2,7 @@ import { MultiMagazineLineDto } from "@/api/dto/magazine/multi-magazine-line.dto
 import { RegionDto } from "@/api/dto/user/region.dto";
 import { magazineService } from "@/api/magazine/magazine";
 import { regionService } from "@/api/region/region";
+import BestPictureMagazineList from "@/components/best-picture-magazine-list";
 import GlobalSwitch from "@/components/global-switch";
 import HeaderBar from "@/components/header-bar";
 import RegionDropDownBox from "@/components/region-drop-box";
@@ -50,7 +51,6 @@ export default function Home() {
   //   });
   // }, [queryType, regionId, base, limit, isGlobal]);
 
-
   // useEffect(() => {
   //   const fetchRegion = async () => {
   //     return regionService.findMany();
@@ -82,28 +82,66 @@ export default function Home() {
 
   return (
     <div>
-      <HeaderBar
-        needBackButton={false}
-        loginInfo={null}
-      />
+      <HeaderBar needBackButton={false} loginInfo={null} />
       <div className="flex justify-center">
-      <div className="w-[64rem] flex justify-between">
-        <div className="w-[16rem] py-6">
-          <div className="w-full bg-white rounded-xl">
-            <RegionDropDownBox regions={regions} setRegionId={setRegionId}/>
+        <div className="w-[64rem] flex justify-between">
+          <div className="w-[16rem] py-6">
+            <div className="w-full bg-white rounded-xl">
+              <RegionDropDownBox regions={regions} setRegionId={setRegionId} />
+            </div>
+            <div className="h-3" />
+            <div className="w-full bg-white rounded-xl px-3">
+              <GlobalSwitch isGlobal={isGlobal} setIsGlobal={setIsGlobal} />
+            </div>
+            <div className="h-6" />
+            <div>
+              <BestPictureMagazineList
+                simpleMagazineLineDto={[
+                  {
+                    id: "abcd",
+                    title: "제주도 여행을 다녀왔는데요!! 아주 어메이징 했어요.",
+                    rank: 1,
+                    writer: {
+                      id: "abc",
+                      name: "sheep",
+                      imageUrl: null,
+                      region: {
+                        id: "default",
+                        name_ch: "全部",
+                        name_fr: "Totalité",
+                        name_ge: "Gesamt",
+                        name_en: "All",
+                        name_hk: "全部",
+                        name_it: "Intero",
+                        name_jp: "全体",
+                        name_kr: "전체",
+                        name_vi: "Toàn bộ",
+                        flag: "🌏",
+                      },
+                    },
+                    region: {
+                      id: "default",
+                      name_ch: "全部",
+                      name_fr: "Totalité",
+                      name_ge: "Gesamt",
+                      name_en: "All",
+                      name_hk: "全部",
+                      name_it: "Intero",
+                      name_jp: "全体",
+                      name_kr: "전체",
+                      name_vi: "Toàn bộ",
+                      flag: "🌏",
+                    },
+                  },
+                ]}
+              />
+            </div>
           </div>
-          <div className="h-3"/>
-          <div className="w-full bg-white rounded-xl px-3">
-            <GlobalSwitch isGlobal={isGlobal} setIsGlobal={setIsGlobal}/>
+          <div className="w-[42rem] py-6">
+            <SearchBox setSearch={setSearch} searchData={searchData} />
           </div>
-          <div className="h-6"/>
-        </div>
-        <div className="w-[42rem] py-6">
-          <SearchBox setSearch={setSearch} searchData={searchData}/>
         </div>
       </div>
-      </div>
-      
     </div>
   );
 }
