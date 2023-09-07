@@ -8,7 +8,7 @@ class MagazineService {
   private url = `${serverUrl}/magazine`;
 
   async findMany(
-    regionId: string,
+    regionId: string | null,
     queryType: string,
     lang: string | null,
     base: number,
@@ -16,12 +16,15 @@ class MagazineService {
     search: string | null
   ) {
     try {
-      let url = `${this.url}?region-id=${regionId}&query-type=${queryType}&base=${base}&limit=${limit}`;
+      let url = `${this.url}?query-type=${queryType}&base=${base}&limit=${limit}`;
       if (lang) {
         url += `&lang=${lang}`;
       }
       if (search) {
         url += `&search=${search}`;
+      }
+      if(regionId) {
+        url += `&region-id=${regionId}`;
       }
       const res = await axios.get<MultiMagazineLineDto>(url);
 

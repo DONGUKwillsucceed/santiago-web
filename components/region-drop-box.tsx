@@ -24,35 +24,65 @@ const defaultRegion: RegionDto = {
 import * as React from "react";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
+import { Box, Button, Modal, Typography } from "@mui/material";
 
 export default function RegionDropDownBox({ regions, setRegionId }: Props) {
+  let locale = "ko-KR";
+  const [isOpen, setIsOpen] = useState(false);
+  const [curRegion, setCurRegion] = useState<RegionDto>(defaultRegion);
+
+  React.useEffect(() => {
+    locale = window.navigator.language;
+  });
 
   const handleChange = (event: SelectChangeEvent) => {
-    console.log(event.target.value as string);
+    console.log(event.target.value);
     setRegionId(event.target.value as string);
   };
 
   return (
-    <FormControl fullWidth>
-      <Select
-        sx={{
-          boxShadow: "none",
-          ".MuiOutlinedInput-notchedOutline": { border: 0 },
-          "&.Mui-focused .MuiOutlinedInput-notchedOutline" : {border: 0},
-          height: 42,
-          
-        }}
-        defaultValue={defaultRegion.id}
-        inputProps={{
-          name: "age",
-          id: "uncontrolled-native",
-        }}
-        onChange={handleChange}
+    <div>
+      <Button
+        fullWidth
+        onClick={() => setIsOpen(true)}
+        style={{ justifyContent: "flex-start", paddingLeft: 12 }}
       >
-        {regions.length
-          ? regions.map((item) => <option value={item.id}>{regionSelector(item, window.navigator.language)}</option>)
-          : null}
-      </Select>
-    </FormControl>
+        {curRegion.flag} {regionSelector(curRegion, locale)}
+      </Button>
+      <Modal
+        open={isOpen}
+        onClose={() => setIsOpen(false)}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box
+          sx={{
+            position: "absolute" as "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: 400,
+            bgcolor: "background.paper",
+            borderRadius: 8,
+            boxShadow: 24,
+            p: 4,
+          }}
+        >
+          <div className="text-[#525252] text-[18px]">Please select the country you want</div>
+          <div className="h-[14px]"/>
+          <div className="flex flex-wrap">
+            {regions.map((region) => (
+              <Button onClick={()=>{
+                setCurRegion(region);
+                setRegionId(region.id);
+                setIsOpen(false);
+              }}>
+                {region.flag} {regionSelector(region, locale)}
+              </Button>
+            ))}
+          </div>
+        </Box>
+      </Modal>
+    </div>
   );
 }

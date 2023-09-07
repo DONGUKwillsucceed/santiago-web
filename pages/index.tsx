@@ -5,7 +5,7 @@ import GlobalSwitch from "@/components/global-switch";
 import HeaderBar from "@/components/header-bar";
 import RegionDropDownBox from "@/components/region-drop-box";
 import SearchBox from "@/components/search-box";
-import { awardedUserLineDto, magazineLineDto, simpleMagazineLineDto } from "@/const/dummy";
+import { awardedUserLineDto, simpleMagazineLineDto } from "@/const/dummy";
 import { SetStateAction, useEffect, useState } from "react";
 import BestMagazineList from "@/components/best-magazine-list";
 import BestUserList from "@/components/best-user-list";
@@ -14,7 +14,7 @@ import { regionService } from "@/api/region/region";
 
 export default function Home() {
   const [regionId, setRegionId] = useState(
-    "0bcbbb91-89bd-48f7-9562-ec662b6fd3a2"
+    "9575b497-f677-4b4a-94fa-1de79763e035"
   );
   const [queryType, setQueryType] = useState("hot");
   const [base, setBase] = useState(0);
@@ -35,7 +35,7 @@ export default function Home() {
   useEffect(() => {
     const fetchMagazine = async () => {
       return magazineService.findMany(
-        regionId,
+        regionId !== '9575b497-f677-4b4a-94fa-1de79763e035' ? regionId : null,
         queryType,
         isGlobal ? null : window.navigator.language,
         base,
@@ -45,7 +45,6 @@ export default function Home() {
     };
 
     fetchMagazine().then((data) => {
-      console.log(data.data[0].likeCount);
       if (queryType == "hot") {
         setHotMagazineList(data);
       } else {

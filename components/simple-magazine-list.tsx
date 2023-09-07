@@ -91,7 +91,7 @@ export default function SimpleMagazineList({
                         title={item.title}
                         likeCount={item.likeCount}
                         photoLikeCount={item.photoLikeCount}
-                        writingLikeCount={item.replyCount}
+                        writingLikeCount={item.writingLikeCount}
                         replyCount={10}
                         writer={{
                           id: item.writer.id,
