@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from "react";
+import React, { Dispatch, SetStateAction, useEffect } from "react";
 import MagazineContainer from "./magazine-container";
 import BasicTabs from "./tap-panel";
 import EmptyCase from "./empty-case";
@@ -22,6 +22,12 @@ export default function SimpleMagazineList({
   recentMagazineList,
   queryType,
 }: Props) {
+  let locale = 'ko-KR'
+
+  useEffect(()=> {
+    locale = window.navigator.language;
+  })
+
   const handleChange = async (
     event: React.SyntheticEvent,
     newValue: number
@@ -50,9 +56,9 @@ export default function SimpleMagazineList({
                         id={item.id}
                         imageUrl={item.imageUrl}
                         title={item.title}
-                        likeCount={10}
-                        photoLikeCount={10}
-                        writingLikeCount={10}
+                        likeCount={item.likeCount}
+                        photoLikeCount={item.photoLikeCount}
+                        writingLikeCount={item.writingLikeCount}
                         replyCount={10}
                         writer={{
                           id: item.writer.id,
@@ -60,7 +66,7 @@ export default function SimpleMagazineList({
                           imageUrl: item.writer.imageUrl,
                           region: regionSelector(
                             item.writer.region,
-                            window.navigator.language
+                            locale
                           ),
                         }}
                         createdAt={item.createdAt}
@@ -77,15 +83,15 @@ export default function SimpleMagazineList({
               recentMagazineList.data.length ? (
                 <div className="flex justify-center flex-wrap">
                   {recentMagazineList.data.map((item) => (
-                    <div className="flex pb-8" key={item.id}>
+                    <div className="flex justify-center pb-8" key={item.id}>
                       <div className="w-4" />
                       <MagazineContainer
                         id={item.id}
                         imageUrl={item.imageUrl}
                         title={item.title}
-                        likeCount={10}
-                        photoLikeCount={10}
-                        writingLikeCount={10}
+                        likeCount={item.likeCount}
+                        photoLikeCount={item.photoLikeCount}
+                        writingLikeCount={item.replyCount}
                         replyCount={10}
                         writer={{
                           id: item.writer.id,
@@ -93,7 +99,7 @@ export default function SimpleMagazineList({
                           imageUrl: item.writer.imageUrl,
                           region: regionSelector(
                             item.writer.region,
-                            window.navigator.language
+                            locale
                           ),
                         }}
                         createdAt={item.createdAt}

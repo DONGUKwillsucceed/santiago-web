@@ -10,6 +10,7 @@ import { SetStateAction, useEffect, useState } from "react";
 import BestMagazineList from "@/components/best-magazine-list";
 import BestUserList from "@/components/best-user-list";
 import SimpleMagazineList from "@/components/simple-magazine-list";
+import { regionService } from "@/api/region/region";
 
 export default function Home() {
   const [regionId, setRegionId] = useState(
@@ -31,36 +32,37 @@ export default function Home() {
       total: 0,
     });
 
-  // useEffect(() => {
-  //   const fetchMagazine = async () => {
-  //     return magazineService.findMany(
-  //       regionId,
-  //       queryType,
-  //       isGlobal ? null : window.navigator.language,
-  //       base,
-  //       limit,
-  //       search
-  //     );
-  //   };
+  useEffect(() => {
+    const fetchMagazine = async () => {
+      return magazineService.findMany(
+        regionId,
+        queryType,
+        isGlobal ? null : window.navigator.language,
+        base,
+        limit,
+        search
+      );
+    };
 
-  //   fetchMagazine().then((data) => {
-  //     if (queryType == "hot") {
-  //       setHotMagazineList(data);
-  //     } else {
-  //       setRecentMagazineList(data);
-  //     }
-  //   });
-  // }, [queryType, regionId, base, limit, isGlobal]);
+    fetchMagazine().then((data) => {
+      console.log(data.data[0].likeCount);
+      if (queryType == "hot") {
+        setHotMagazineList(data);
+      } else {
+        setRecentMagazineList(data);
+      }
+    });
+  }, [queryType, regionId, base, limit, isGlobal]);
 
-  // useEffect(() => {
-  //   const fetchRegion = async () => {
-  //     return regionService.findMany();
-  //   };
+  useEffect(() => {
+    const fetchRegion = async () => {
+      return regionService.findMany();
+    };
 
-  //   fetchRegion().then((data) => {
-  //     setRegions(data);
-  //   });
-  // }, []);
+    fetchRegion().then((data) => {
+      setRegions(data);
+    });
+  }, []);
 
   const searchData = async () => {
     return magazineService
@@ -138,8 +140,8 @@ export default function Home() {
               setQueryType={setQueryType}
               setBase={setBase}
               setLimit={setLimit}
-              hotMagazineList={{data:magazineLineDto, total: 10}}
-              recentMagazineList={{data:magazineLineDto, total: 10}}
+              hotMagazineList={hotMagazineList}
+              recentMagazineList={recentMagazineList}
             />
           </div>
         </div>
