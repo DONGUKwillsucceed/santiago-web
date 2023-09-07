@@ -19,39 +19,48 @@ export default function SimpleMagazineLineContainer({
   writer,
   rank,
 }: Props) {
-  let locale = 'ko-KR'
+  let locale = "ko-KR";
 
-  useEffect(()=> {
+  useEffect(() => {
     locale = window.navigator.language;
-  })
+  });
 
-    const selectMedal = (rank: number) => {
-        if(rank === 1) {
-            return '🥇'
-        } else if(rank === 2) {
-            return '🥈'
-        } else if (rank === 3) {
-            return '🥉'
-        } else {
-            return <div className="w-[16px]"/>
-        }
+  const selectMedal = (rank: number) => {
+    if (rank === 1) {
+      return "🥇";
+    } else if (rank === 2) {
+      return "🥈";
+    } else if (rank === 3) {
+      return "🥉";
+    } else {
+      return <div className="w-[16px]" />;
     }
+  };
 
   return (
-    <div onClick={()=>alert(id)} className="w-full py-[5px] flex items-center">
+    <div
+      onClick={() => alert(id)}
+      className="w-full py-[5px] flex items-center"
+    >
       <div>{selectMedal(rank)}</div>
       <div className="flex-1 min-w-0 pl-[10px]">
         <div className="flex justify-between">
-          <div className="text-[#404040] text-[12px]">{region.flag} {regionSelector(region, locale)}</div>
-          <UserProfileCard
-            id={writer.id}
-            name={writer.name}
-            region={null}
-            imageUrl={writer.imageUrl}
-          />
+          <div className="text-[#404040] text-[12px]">
+            {region.flag} {regionSelector(region, locale)}
+          </div>
+          <div className="w-[85px]">
+            <UserProfileCard
+              id={writer.id}
+              name={writer.name}
+              region={null}
+              imageUrl={writer.imageUrl}
+            />
+          </div>
         </div>
-        <div className="h-[4px]"/>
-        <div className="text-[#404040] text-[14px] font-medium truncate">{title}</div>
+        <div className="h-[4px]" />
+        <div className="text-[#404040] text-[14px] font-medium truncate">
+          {title}
+        </div>
       </div>
     </div>
   );
