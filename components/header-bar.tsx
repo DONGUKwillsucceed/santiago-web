@@ -14,7 +14,7 @@ interface Props {
 
 export default function HeaderBar({ needBackButton, loginInfo }: Props) {
   return (
-    <div className="h-14 flex-row grid place-items-center bg-white">
+    <div className="h-[48px] flex-row grid place-items-center bg-white">
       <div className="w-full md:max-w-7xl min-w-min h-4/5 px-1 flex justify-between">
         <div className="flex flex-row">
           {needBackButton ? (

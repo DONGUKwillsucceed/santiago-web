@@ -1,14 +1,14 @@
 import { MultiMagazineLineDto } from "@/api/dto/magazine/multi-magazine-line.dto";
 import { RegionDto } from "@/api/dto/user/region.dto";
 import { magazineService } from "@/api/magazine/magazine";
-import { regionService } from "@/api/region/region";
-import BestPictureMagazineList from "@/components/best-picture-magazine-list";
 import GlobalSwitch from "@/components/global-switch";
 import HeaderBar from "@/components/header-bar";
 import RegionDropDownBox from "@/components/region-drop-box";
 import SearchBox from "@/components/search-box";
-import SimpleMagazineList from "@/components/simple-magazine-list";
+import { awardedUserLineDto, simpleMagazineLineDto } from "@/const/dummy";
 import { SetStateAction, useEffect, useState } from "react";
+import BestMagazineList from "@/components/best-magazine-list";
+import BestUserList from "@/components/best-user-list";
 
 export default function Home() {
   const [regionId, setRegionId] = useState(
@@ -95,45 +95,37 @@ export default function Home() {
             </div>
             <div className="h-6" />
             <div>
-              <BestPictureMagazineList
-                simpleMagazineLineDto={[
-                  {
-                    id: "abcd",
-                    title: "제주도 여행을 다녀왔는데요!! 아주 어메이징 했어요.",
-                    rank: 1,
-                    writer: {
-                      id: "abc",
-                      name: "sheep",
-                      imageUrl: null,
-                      region: {
-                        id: "default",
-                        name_ch: "全部",
-                        name_fr: "Totalité",
-                        name_ge: "Gesamt",
-                        name_en: "All",
-                        name_hk: "全部",
-                        name_it: "Intero",
-                        name_jp: "全体",
-                        name_kr: "전체",
-                        name_vi: "Toàn bộ",
-                        flag: "🌏",
-                      },
-                    },
-                    region: {
-                      id: "default",
-                      name_ch: "全部",
-                      name_fr: "Totalité",
-                      name_ge: "Gesamt",
-                      name_en: "All",
-                      name_hk: "全部",
-                      name_it: "Intero",
-                      name_jp: "全体",
-                      name_kr: "전체",
-                      name_vi: "Toàn bộ",
-                      flag: "🌏",
-                    },
-                  },
-                ]}
+              <BestMagazineList
+                title="🏞️ The picture here is so beautiful!"
+                simpleMagazineLineDto={simpleMagazineLineDto}
+              />
+            </div>
+            <div className="h-6" />
+            <div>
+              <BestMagazineList
+                title="✍️ The writing here is really nice!"
+                simpleMagazineLineDto={simpleMagazineLineDto}
+              />
+            </div>
+            <div className="h-6" />
+            <div>
+              <BestUserList
+                title="📷 The best Photographers!"
+                awardedUserLineDto={awardedUserLineDto}
+              />
+            </div>
+            <div className="h-6" />
+            <div>
+              <BestUserList
+                title="✒️ The best Writers!"
+                awardedUserLineDto={awardedUserLineDto}
+              />
+            </div>
+            <div className="h-6" />
+            <div>
+              <BestUserList
+                title="🏃‍♂️ The travel fanatics!"
+                awardedUserLineDto={awardedUserLineDto}
               />
             </div>
           </div>

@@ -33,7 +33,7 @@ export default function SimpleMagazineLineContainer({
         } else if (rank === 3) {
             return '🥉'
         } else {
-            return '  '
+            return <div className="w-[16px]"/>
         }
     }
 
