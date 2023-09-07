@@ -11,6 +11,9 @@ import BestMagazineList from "@/components/best-magazine-list";
 import BestUserList from "@/components/best-user-list";
 import SimpleMagazineList from "@/components/simple-magazine-list";
 import { regionService } from "@/api/region/region";
+import { SimpleMagazineLineDto } from "@/api/dto/magazine/simple-magazine-line.dto";
+import { AwardedUserLineDto } from "@/api/dto/user/awarded-user-line.dto";
+import { userSerivce } from "@/api/user/user";
 
 export default function Home() {
   const [regionId, setRegionId] = useState(
@@ -31,11 +34,22 @@ export default function Home() {
       data: [],
       total: 0,
     });
+  const [bestPhotoMagazineList, setBestPhotoMagazineList] = useState<
+    SimpleMagazineLineDto[]
+  >([]);
+  const [bestWritingMagazineList, setBestWritingMagazineList] = useState<
+    SimpleMagazineLineDto[]
+  >([]);
+  const [bestPhotographer, setBestPhotographer] = useState<
+    AwardedUserLineDto[]
+  >([]);
+  const [bestWriter, setBestWriter] = useState<AwardedUserLineDto[]>([]);
+  const [bestFanatic, setBestFanatic] = useState<AwardedUserLineDto[]>([]);
 
   useEffect(() => {
     const fetchMagazine = async () => {
       return magazineService.findMany(
-        regionId !== '9575b497-f677-4b4a-94fa-1de79763e035' ? regionId : null,
+        regionId !== "9575b497-f677-4b4a-94fa-1de79763e035" ? regionId : null,
         queryType,
         isGlobal ? null : window.navigator.language,
         base,
@@ -43,6 +57,69 @@ export default function Home() {
         search
       );
     };
+
+    const fetchBestPhotoMagazine = async () => {
+      return magazineService.findManyForBest(
+        regionId !== "9575b497-f677-4b4a-94fa-1de79763e035" ? regionId : null,
+        "photo-best",
+        isGlobal ? null : window.navigator.language,
+        0,
+        5
+      );
+    };
+
+    const fetchBestWritingMagazine = async () => {
+      return magazineService.findManyForBest(
+        regionId !== "9575b497-f677-4b4a-94fa-1de79763e035" ? regionId : null,
+        "writing-best",
+        isGlobal ? null : window.navigator.language,
+        0,
+        5
+      );
+    };
+
+    const fetchBestPhotographer = async () => {
+      return userSerivce.findManyForBest(
+        regionId !== "9575b497-f677-4b4a-94fa-1de79763e035" ? regionId : null,
+        "photo-best",
+        0,
+        5
+      );
+    };
+
+    const fetchBestWriter = async () => {
+      return userSerivce.findManyForBest(
+        regionId !== "9575b497-f677-4b4a-94fa-1de79763e035" ? regionId : null,
+        "writing-best",
+        0,
+        5
+      );
+    };
+
+    const fetchBestFanatic = async () => {
+      return userSerivce.findManyForBest(
+        regionId !== "9575b497-f677-4b4a-94fa-1de79763e035" ? regionId : null,
+        "fantic-best",
+        0,
+        5
+      );
+    };
+
+    fetchBestPhotoMagazine().then((data) => {
+      setBestPhotoMagazineList(data);
+    });
+
+    fetchBestWritingMagazine().then((data) => {
+      setBestWritingMagazineList(data);
+    });
+
+    fetchBestFanatic().then((data) => {
+      setBestFanatic(data);
+    });
+
+    fetchBestPhotographer().then((data) => setBestPhotographer(data));
+
+    fetchBestWriter().then((data) => setBestWriter(data));
 
     fetchMagazine().then((data) => {
       if (queryType == "hot") {
@@ -97,38 +174,48 @@ export default function Home() {
             </div>
             <div className="h-6" />
             <div>
-              <BestMagazineList
-                title="🏞️ The picture here is so beautiful!"
-                simpleMagazineLineDto={simpleMagazineLineDto}
-              />
+              {bestPhotoMagazineList.length != 0 ? (
+                <BestMagazineList
+                  title="🏞️ The picture here is so beautiful!"
+                  simpleMagazineLineDto={bestPhotoMagazineList}
+                />
+              ) : null}
             </div>
             <div className="h-6" />
             <div>
-              <BestMagazineList
-                title="✍️ The writing here is really nice!"
-                simpleMagazineLineDto={simpleMagazineLineDto}
-              />
+              {bestWritingMagazineList.length != 0 ? (
+                <BestMagazineList
+                  title="✍️ The writing here is really nice!"
+                  simpleMagazineLineDto={bestWritingMagazineList}
+                />
+              ) : null}
             </div>
             <div className="h-6" />
             <div>
-              <BestUserList
-                title="📷 The best Photographers!"
-                awardedUserLineDto={awardedUserLineDto}
-              />
+              {bestPhotographer.length != 0 ? (
+                <BestUserList
+                  title="📷 The best Photographers!"
+                  awardedUserLineDto={bestPhotographer}
+                />
+              ) : null}
             </div>
             <div className="h-6" />
             <div>
-              <BestUserList
-                title="✒️ The best Writers!"
-                awardedUserLineDto={awardedUserLineDto}
-              />
+              {bestWriter.length != 0 ? (
+                <BestUserList
+                  title="✒️ The best Writers!"
+                  awardedUserLineDto={bestWriter}
+                />
+              ) : null}
             </div>
             <div className="h-6" />
             <div>
-              <BestUserList
-                title="🏃‍♂️ The travel fanatics!"
-                awardedUserLineDto={awardedUserLineDto}
-              />
+              {bestFanatic.length != 0 ? (
+                <BestUserList
+                  title="🏃‍♂️ The travel fanatics!"
+                  awardedUserLineDto={bestFanatic}
+                />
+              ) : null}
             </div>
           </div>
           <div className="w-[42rem] py-6">
