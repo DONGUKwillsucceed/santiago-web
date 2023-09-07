@@ -1,6 +1,5 @@
 import { Box, Tab, Tabs } from "@mui/material";
 import React from "react";
-import LanguageToggleButton from "./language-toggle-button";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -16,7 +15,6 @@ interface Props {
   ) => Promise<void>;
   nodeForHot: React.ReactNode;
   nodeForRecent: React.ReactNode;
-  setIsGlobal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 function CustomTabPanel(props: TabPanelProps) {
@@ -42,7 +40,7 @@ function a11yProps(index: number) {
   };
 }
 
-export default function BasicTabs({ nodeForHot, nodeForRecent, value, handleChange, setIsGlobal }: Props) {
+export default function BasicTabs({ nodeForHot, nodeForRecent, value, handleChange}: Props) {
   return (
     <Box sx={{ width: "100%" }}>
       <Box className="flex justify-between" sx={{ borderBottom: 1, borderColor: "divider" }}>
@@ -54,9 +52,6 @@ export default function BasicTabs({ nodeForHot, nodeForRecent, value, handleChan
           <Tab label="🔥 Hot" {...a11yProps(0)} />
           <Tab label="🏃‍♂️ Recent" {...a11yProps(1)} />
         </Tabs>
-        <div className="grid place-content-center">
-        <LanguageToggleButton setIsGlobal={setIsGlobal}/>
-        </div>
       </Box>
       <CustomTabPanel value={value} index={0}>
         {nodeForHot}

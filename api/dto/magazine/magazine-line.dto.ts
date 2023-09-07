@@ -6,4 +6,8 @@ export interface MagazineLineDto {
 	title: string;
 	writer: UserLineDto;
 	createdAt: string;
+	likeCount: number;
+	photoLikeCount: number;
+	writingLikeCount: number;
+	replyCount: number;
 }

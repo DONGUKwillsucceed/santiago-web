@@ -10,7 +10,6 @@ interface Props {
   setQueryType: Dispatch<SetStateAction<string>>;
   setBase: Dispatch<SetStateAction<number>>;
   setLimit: Dispatch<SetStateAction<number>>;
-  setIsGlobal: Dispatch<SetStateAction<boolean>>;
   hotMagazineList: MultiMagazineLineDto;
   recentMagazineList: MultiMagazineLineDto;
 }
@@ -19,7 +18,6 @@ export default function SimpleMagazineList({
   setQueryType,
   setLimit,
   setBase,
-  setIsGlobal,
   hotMagazineList,
   recentMagazineList,
   queryType,
@@ -42,17 +40,20 @@ export default function SimpleMagazineList({
           <BasicTabs
             value={queryType === "hot" ? 0 : 1}
             handleChange={handleChange}
-            setIsGlobal={setIsGlobal}
             nodeForHot={
               hotMagazineList.data.length ? (
-                <div className="flex justify-center flex-wrap">
+                <div className="flex-col justify-center flex-wrap">
                   {hotMagazineList.data.map((item) => (
-                    <div className="flex pb-8" key={item.id}>
+                    <div className="flex justify-center pb-8" key={item.id}>
                       <div className="w-4" />
                       <MagazineContainer
                         id={item.id}
                         imageUrl={item.imageUrl}
                         title={item.title}
+                        likeCount={10}
+                        photoLikeCount={10}
+                        writingLikeCount={10}
+                        replyCount={10}
                         writer={{
                           id: item.writer.id,
                           name: item.writer.name,
@@ -77,24 +78,28 @@ export default function SimpleMagazineList({
                 <div className="flex justify-center flex-wrap">
                   {recentMagazineList.data.map((item) => (
                     <div className="flex pb-8" key={item.id}>
-                    <div className="w-4" />
-                    <MagazineContainer
-                      id={item.id}
-                      imageUrl={item.imageUrl}
-                      title={item.title}
-                      writer={{
-                        id: item.writer.id,
-                        name: item.writer.name,
-                        imageUrl: item.writer.imageUrl,
-                        region: regionSelector(
-                          item.writer.region,
-                          window.navigator.language
-                        ),
-                      }}
-                      createdAt={item.createdAt}
-                    />
-                    <div className="w-4" />
-                  </div>
+                      <div className="w-4" />
+                      <MagazineContainer
+                        id={item.id}
+                        imageUrl={item.imageUrl}
+                        title={item.title}
+                        likeCount={10}
+                        photoLikeCount={10}
+                        writingLikeCount={10}
+                        replyCount={10}
+                        writer={{
+                          id: item.writer.id,
+                          name: item.writer.name,
+                          imageUrl: item.writer.imageUrl,
+                          region: regionSelector(
+                            item.writer.region,
+                            window.navigator.language
+                          ),
+                        }}
+                        createdAt={item.createdAt}
+                      />
+                      <div className="w-4" />
+                    </div>
                   ))}
                 </div>
               ) : (

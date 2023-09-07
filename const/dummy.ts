@@ -1,3 +1,5 @@
+import { MagazineLineDto } from "@/api/dto/magazine/magazine-line.dto";
+
 export const simpleMagazineLineDto = [
   {
     id: "abcd",
@@ -278,3 +280,90 @@ export const awardedUserLineDto = [
     rank: 5
   }
 ];
+
+export const magazineLineDto: MagazineLineDto[] = [
+  {
+    id: 'abc',
+    title: "제주도 여행을 떠나요!! 진짜로 제발로 완전 그냥 떠나요!",
+    imageUrl: null,
+    writer: {
+      id: 'strd',
+      name: 'sheep5',
+      region: {
+        id: "default",
+        name_ch: "全部",
+        name_fr: "Totalité",
+        name_ge: "Gesamt",
+        name_en: "All",
+        name_hk: "全部",
+        name_it: "Intero",
+        name_jp: "全体",
+        name_kr: "전체",
+        name_vi: "Toàn bộ",
+        flag: "🌏",
+      },
+      imageUrl: null,
+    },
+    createdAt: '2012.10.9',
+    likeCount: 10,
+    photoLikeCount: 10,
+    writingLikeCount: 10,
+    replyCount: 10
+  },
+  {
+    id: 'abc',
+    title: "제주도 여행을 떠나요!! 진짜로 제발로 완전 그냥 떠나요!",
+    imageUrl: null,
+    writer: {
+      id: 'strd',
+      name: 'sheep5',
+      region: {
+        id: "default",
+        name_ch: "全部",
+        name_fr: "Totalité",
+        name_ge: "Gesamt",
+        name_en: "All",
+        name_hk: "全部",
+        name_it: "Intero",
+        name_jp: "全体",
+        name_kr: "전체",
+        name_vi: "Toàn bộ",
+        flag: "🌏",
+      },
+      imageUrl: null,
+    },
+    createdAt: '2012.10.9',
+    likeCount: 10,
+    photoLikeCount: 10,
+    writingLikeCount: 10,
+    replyCount: 10
+  },
+  {
+    id: 'abc',
+    title: "제주도 여행을 떠나요!! 진짜로 제발로 완전 그냥 떠나요!",
+    imageUrl: null,
+    writer: {
+      id: 'strd',
+      name: 'sheep5',
+      region: {
+        id: "default",
+        name_ch: "全部",
+        name_fr: "Totalité",
+        name_ge: "Gesamt",
+        name_en: "All",
+        name_hk: "全部",
+        name_it: "Intero",
+        name_jp: "全体",
+        name_kr: "전체",
+        name_vi: "Toàn bộ",
+        flag: "🌏",
+      },
+      imageUrl: null,
+    },
+    createdAt: '2012.10.9',
+    likeCount: 10,
+    photoLikeCount: 10,
+    writingLikeCount: 10,
+    replyCount: 10
+  }
+]

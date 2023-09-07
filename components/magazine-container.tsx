@@ -1,10 +1,19 @@
 import Image from "next/image";
 import UserProfileCard from "./user-profile-container";
+import LikeButton from "./like-button";
+import { MouseEvent } from "react";
+import ReplyButton from "./reply-button";
+import PhotoLikeButton from "./photo-like-button";
+import WritingLikeButton from "./writing-like-button";
 
 interface Props {
   id: string;
   imageUrl: string | null;
   title: string;
+  likeCount: number;
+  photoLikeCount: number;
+  writingLikeCount: number;
+  replyCount: number;
   writer: {
     id: string;
     name: string;
@@ -20,19 +29,32 @@ export default function MagazineContainer({
   title,
   writer,
   createdAt,
+  likeCount,
+  photoLikeCount,
+  writingLikeCount,
+  replyCount
 }: Props) {
   const thumbnailImageUrl = imageUrl ? imageUrl : "/santiago-default.png";
   return (
-    <div className="w-80 shadow-lg rounded-xl cursor-pointer" onClick={() => alert(id)}>
+    <div className="w-5/6 shadow-lg rounded-xl cursor-pointer" onClick={() => alert(id)}>
       <Image
         className="rounded-t-xl"
         src={thumbnailImageUrl}
         alt="thumbnail image"
-        width={500}
+        width={600}
         height={300}
       />
-      <div className="px-4 py-2 text-base font-medium truncate">
+      <div className="px-4 py-[8px] text-base font-medium truncate">
         {title}
+      </div>
+      <div className="flex px-[16px] pb-[8px]">
+        <LikeButton count={likeCount} onClick={()=>{}}/>
+        <div className="px-[5px]"/>
+        <PhotoLikeButton count={photoLikeCount} onClick={()=>{}}/>
+        <div className="px-[5px]"/>
+        <WritingLikeButton count={writingLikeCount} onClick={()=>{}}/>
+        <div className="px-[5px]"/>
+        <ReplyButton count={replyCount} onClick={()=>{}}/>
       </div>
       <div className="flex justify-between px-4">
         <UserProfileCard

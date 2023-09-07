@@ -5,10 +5,11 @@ import GlobalSwitch from "@/components/global-switch";
 import HeaderBar from "@/components/header-bar";
 import RegionDropDownBox from "@/components/region-drop-box";
 import SearchBox from "@/components/search-box";
-import { awardedUserLineDto, simpleMagazineLineDto } from "@/const/dummy";
+import { awardedUserLineDto, magazineLineDto, simpleMagazineLineDto } from "@/const/dummy";
 import { SetStateAction, useEffect, useState } from "react";
 import BestMagazineList from "@/components/best-magazine-list";
 import BestUserList from "@/components/best-user-list";
+import SimpleMagazineList from "@/components/simple-magazine-list";
 
 export default function Home() {
   const [regionId, setRegionId] = useState(
@@ -131,6 +132,15 @@ export default function Home() {
           </div>
           <div className="w-[42rem] py-6">
             <SearchBox setSearch={setSearch} searchData={searchData} />
+            <div className="h-6" />
+            <SimpleMagazineList
+              queryType={queryType}
+              setQueryType={setQueryType}
+              setBase={setBase}
+              setLimit={setLimit}
+              hotMagazineList={{data:magazineLineDto, total: 10}}
+              recentMagazineList={{data:magazineLineDto, total: 10}}
+            />
           </div>
         </div>
       </div>
