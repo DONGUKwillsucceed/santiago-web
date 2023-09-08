@@ -13,6 +13,7 @@ import { regionService } from "@/api/region/region";
 import { SimpleMagazineLineDto } from "@/api/dto/magazine/simple-magazine-line.dto";
 import { AwardedUserLineDto } from "@/api/dto/user/awarded-user-line.dto";
 import { userSerivce } from "@/api/user/user";
+import userStore from "@/store/user-store";
 
 export default function Home() {
   const [regionId, setRegionId] = useState(
@@ -158,9 +159,12 @@ export default function Home() {
       });
   };
 
+  const {id, name, imageUrl} = userStore();
+  const loginInfo = id !== '' ? {id, name, imageUrl} : null
+
   return (
     <div>
-      <HeaderBar needBackButton={false} loginInfo={null} />
+      <HeaderBar needBackButton={false} loginInfo={loginInfo} />
       <div className="flex justify-center">
         <div className="w-[64rem] flex justify-between">
           <div className="w-[16rem] py-6">
