@@ -13,6 +13,7 @@ export default function ReplyButton({count, onClick}: Props) {
             className="flex items-center text-xs text-gray-500"
           >
             <Image src={"/message.svg"} alt="reply" width={18} height={18} />
+            <div className="w-[3px]"/>
             {count}
           </div>
     )

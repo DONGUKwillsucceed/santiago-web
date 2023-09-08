@@ -1,7 +1,6 @@
 import Image from "next/image";
 import UserProfileCard from "./user-profile-container";
 import LikeButton from "./like-button";
-import { MouseEvent } from "react";
 import ReplyButton from "./reply-button";
 import PhotoLikeButton from "./photo-like-button";
 import WritingLikeButton from "./writing-like-button";
@@ -35,6 +34,7 @@ export default function MagazineContainer({
   replyCount
 }: Props) {
   const thumbnailImageUrl = imageUrl ? imageUrl : "/santiago-default.png";
+
   return (
     <div className="w-5/6 shadow-lg rounded-xl cursor-pointer" onClick={() => alert(id)}>
       <Image
@@ -48,11 +48,11 @@ export default function MagazineContainer({
         {title}
       </div>
       <div className="flex px-[16px] pb-[8px]">
-        <LikeButton count={likeCount} onClick={()=>{}}/>
+        <LikeButton count={likeCount}/>
         <div className="px-[5px]"/>
-        <PhotoLikeButton count={photoLikeCount} onClick={()=>{}}/>
+        <PhotoLikeButton count={photoLikeCount} />
         <div className="px-[5px]"/>
-        <WritingLikeButton count={writingLikeCount} onClick={()=>{}}/>
+        <WritingLikeButton count={writingLikeCount}/>
         <div className="px-[5px]"/>
         <ReplyButton count={replyCount} onClick={()=>{}}/>
       </div>
