@@ -142,7 +142,7 @@ export default function Home() {
   const searchData = async () => {
     return magazineService
       .findMany(
-        regionId,
+        regionId !== "9575b497-f677-4b4a-94fa-1de79763e035" ? regionId : null,
         queryType,
         isGlobal ? null : window.navigator.language,
         base,

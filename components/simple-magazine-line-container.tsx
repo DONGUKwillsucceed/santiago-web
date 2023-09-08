@@ -44,17 +44,9 @@ export default function SimpleMagazineLineContainer({
     >
       <div>{selectMedal(rank)}</div>
       <div className="flex-1 min-w-0 pl-[10px]">
-        <div className="flex justify-between">
+        <div className="flex">
           <div className="text-[#404040] text-[12px]">
             {region.flag} {regionSelector(region, locale)}
-          </div>
-          <div className="w-[85px]">
-            <UserProfileCard
-              id={writer.id}
-              name={writer.name}
-              region={null}
-              imageUrl={writer.imageUrl}
-            />
           </div>
         </div>
         <div className="h-[4px]" />
