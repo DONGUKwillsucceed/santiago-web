@@ -1,13 +1,18 @@
+import { magazineService } from "@/api/magazine/magazine";
+import userStore from "@/store/user-store";
 import { SortByAlpha } from "@mui/icons-material";
 import { MouseEventHandler, useState } from "react";
 
 interface Props {
+  magazineId: string;
   count: number;
 }
 
-export default function WritingLikeButton({ count }: Props) {
+export default function WritingLikeButton({ count, magazineId }: Props) {
   const [isPressed, setIsPressed] = useState(false);
   const [curCount, setCurCount] = useState(count);
+  const {id} = userStore();
+
 
   return (
     <div
@@ -16,9 +21,12 @@ export default function WritingLikeButton({ count }: Props) {
         if (!isPressed) {
           setCurCount(curCount + 1);
           setIsPressed(true);
+          magazineService.increaseLike(magazineId, 'writing', id);
         } else {
           setCurCount(curCount - 1);
           setIsPressed(false);
+          magazineService.decreaseLike(magazineId, 'writing', id);
+
         }
       }}
       className="flex items-center text-xs text-gray-500"

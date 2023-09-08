@@ -48,11 +48,9 @@ export default function MagazineContainer({
         {title}
       </div>
       <div className="flex px-[16px] pb-[8px]">
-        <LikeButton count={likeCount}/>
+        <PhotoLikeButton magazineId={id} count={photoLikeCount} />
         <div className="px-[5px]"/>
-        <PhotoLikeButton count={photoLikeCount} />
-        <div className="px-[5px]"/>
-        <WritingLikeButton count={writingLikeCount}/>
+        <WritingLikeButton magazineId={id} count={writingLikeCount}/>
         <div className="px-[5px]"/>
         <ReplyButton count={replyCount} onClick={()=>{}}/>
       </div>

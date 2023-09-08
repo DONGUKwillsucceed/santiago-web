@@ -68,6 +68,40 @@ async findManyForBest(
       throw new NetworkError(err as string);
     }
   }
+
+  async increaseLike(magazineId: string, type: string, userId: string) {
+    try {
+      const url = `${this.url}/${magazineId}/like?type=${type}&user-id=${userId}`;
+      const res = await axios.post(url);
+
+      if (res.status == HttpStatusCode.Ok || res.status === HttpStatusCode.Created) {
+        return res.data;
+      } else if (res.status == HttpStatusCode.NotFound) {
+        throw new NotFoundError("Not Found");
+      } else {
+        throw new Error();
+      }
+    } catch(err) {
+      throw new NetworkError(err as string);
+    }
+  }
+
+  async decreaseLike(magazineId: string, type: string, userId: string) {
+    try {
+      const url = `${this.url}/${magazineId}/like?type=${type}&user-id=${userId}`;
+      const res = await axios.delete(url);
+
+      if (res.status == HttpStatusCode.Ok || res.status === HttpStatusCode.Created) {
+        return res.data;
+      } else if (res.status == HttpStatusCode.NotFound) {
+        throw new NotFoundError("Not Found");
+      } else {
+        throw new Error();
+      }
+    } catch(err) {
+      throw new NetworkError(err as string);
+    }
+  }
 }
 
 export const magazineService = new MagazineService();
