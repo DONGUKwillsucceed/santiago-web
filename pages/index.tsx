@@ -14,6 +14,7 @@ import { SimpleMagazineLineDto } from "@/api/dto/magazine/simple-magazine-line.d
 import { AwardedUserLineDto } from "@/api/dto/user/awarded-user-line.dto";
 import { userSerivce } from "@/api/user/user";
 import userStore from "@/store/user-store";
+import { regionSelector } from "@/util/region-selector";
 
 export default function Home() {
   const [regionId, setRegionId] = useState(
@@ -45,6 +46,12 @@ export default function Home() {
   >([]);
   const [bestWriter, setBestWriter] = useState<AwardedUserLineDto[]>([]);
   const [bestFanatic, setBestFanatic] = useState<AwardedUserLineDto[]>([]);
+  const {
+    id,
+    name,
+    imageUrl,
+  } = userStore();
+  const loginInfo = id !== "" ? { id, name, imageUrl } : null;
 
   useEffect(() => {
     const fetchMagazine = async () => {
@@ -158,9 +165,6 @@ export default function Home() {
         }
       });
   };
-
-  const {id, name, imageUrl} = userStore();
-  const loginInfo = id !== '' ? {id, name, imageUrl} : null
 
   return (
     <div>
