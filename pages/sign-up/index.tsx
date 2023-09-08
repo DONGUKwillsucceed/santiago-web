@@ -46,7 +46,7 @@ export default function SignUp() {
       <HeaderBar needBackButton={false} loginInfo={null} />
       <div className="lg:h-10 h-4" />
       <div className="flex justify-center h-screen">
-        <div className="w-full w-[400px] px-[32px] min-w-min bg-white h-fit rounded border">
+        <div className="w-[400px] px-[32px] min-w-min bg-white h-fit rounded border">
           <div className="lg:h-8 h-5" />
           <div className="grid place-items-center text-[#262626] text-medium">
             Sign Up
