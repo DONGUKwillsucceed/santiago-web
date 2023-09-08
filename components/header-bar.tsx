@@ -40,7 +40,7 @@ export default function HeaderBar({ needBackButton, loginInfo }: Props) {
               color="primary"
               size="small"
               onClick={() => {
-                router.push('/sign-up');
+                router.push('/sign-in');
               }}
             >
               Sign In

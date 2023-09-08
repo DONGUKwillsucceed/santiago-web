@@ -15,7 +15,15 @@ class AuthService {
 
   async signIn(dto: SignInRequestDto) {
     try {
-      return axios.post<SignInRequestDto, SignInResponseDto>(`${this.url}`);
+      return axios.post<SignInRequestDto, AxiosResponse<SignInResponseDto>>(
+        `${this.url}/sign-in`,
+        dto,
+        { headers: { "Content-Type": `application/json` } }
+      ).then((res)=>{
+        return {isSuccess: true, ...res.data};
+      }).catch((res)=>{
+        return {isSuccess: false, ...res.data}
+      });
     } catch (err) {
       throw new NetworkError("network error occur");
     }
@@ -31,8 +39,11 @@ class AuthService {
           "Content-Type": `application/json`,
         },
       });
-      
-      if (res.status == HttpStatusCode.Created || res.status === HttpStatusCode.Ok) {
+
+      if (
+        res.status == HttpStatusCode.Created ||
+        res.status === HttpStatusCode.Ok
+      ) {
         return res.data;
       } else if (res.status == HttpStatusCode.NotFound) {
         throw new NotFoundError("Not Found");
@@ -55,7 +66,10 @@ class AuthService {
           "Content-Type": `application/json`,
         },
       });
-      if (res.status == HttpStatusCode.Created || res.status === HttpStatusCode.Ok) {
+      if (
+        res.status == HttpStatusCode.Created ||
+        res.status === HttpStatusCode.Ok
+      ) {
         return res.data;
       } else if (res.status == HttpStatusCode.NotFound) {
         throw new NotFoundError("Not Found");
