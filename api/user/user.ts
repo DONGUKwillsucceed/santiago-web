@@ -5,6 +5,7 @@ import { NetworkError } from "@/error/network-error";
 import { AwardedUserLineDto } from "../dto/user/awarded-user-line.dto";
 import { CreateUserDto } from "../dto/user/create-user.dto";
 import { SignInResDto } from "../dto/user/sign-in-res.dto";
+import { UserDto } from "../dto/user/user.dto";
 
 class UserService {
   private url = `${serverUrl}/user`;
@@ -22,7 +23,10 @@ class UserService {
       }
       const res = await axios.get<AwardedUserLineDto[]>(url);
 
-      if (res.status == HttpStatusCode.Ok || res.status === HttpStatusCode.Created) {
+      if (
+        res.status == HttpStatusCode.Ok ||
+        res.status === HttpStatusCode.Created
+      ) {
         return res.data;
       } else if (res.status == HttpStatusCode.NotFound) {
         throw new NotFoundError("Not Found");
@@ -36,13 +40,20 @@ class UserService {
 
   async signUpWithEmail(dto: CreateUserDto) {
     try {
-      const res = await axios.post<CreateUserDto, AxiosResponse<SignInResDto>>(this.url, dto, {
-        headers: {
-          "Content-Type": `application/json`,
-        },
-      });
+      const res = await axios.post<CreateUserDto, AxiosResponse<SignInResDto>>(
+        this.url,
+        dto,
+        {
+          headers: {
+            "Content-Type": `application/json`,
+          },
+        }
+      );
 
-      if (res.status == HttpStatusCode.Ok || res.status === HttpStatusCode.Created) {
+      if (
+        res.status == HttpStatusCode.Ok ||
+        res.status === HttpStatusCode.Created
+      ) {
         return res.data;
       } else if (res.status == HttpStatusCode.NotFound) {
         throw new NotFoundError("Not Found");
@@ -52,6 +63,22 @@ class UserService {
     } catch (err) {
       throw new NetworkError(err as string);
     }
+  }
+
+  async findUnique(userId: string) {
+    try {
+      const res = await axios.get<UserDto>(`${this.url}/${userId}`);
+      if (
+        res.status == HttpStatusCode.Ok ||
+        res.status === HttpStatusCode.Created
+      ) {
+        return res.data;
+      } else if (res.status == HttpStatusCode.NotFound) {
+        throw new NotFoundError("Not Found");
+      } else {
+        throw new Error();
+      }
+    } catch (err) {}
   }
 }
 

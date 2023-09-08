@@ -81,7 +81,7 @@ export default function SimpleMagazineList({
             }
             nodeForRecent={
               recentMagazineList.data.length ? (
-                <div className="flex justify-center flex-wrap">
+                <div className="flex-col justify-center flex-wrap">
                   {recentMagazineList.data.map((item) => (
                     <div className="flex justify-center pb-8" key={item.id}>
                       <div className="w-4" />
