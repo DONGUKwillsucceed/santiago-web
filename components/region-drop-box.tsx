@@ -22,8 +22,7 @@ const defaultRegion: RegionDto = {
 };
 
 import * as React from "react";
-import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
+import { SelectChangeEvent } from "@mui/material/Select";
 import { Box, Button, Modal, Typography } from "@mui/material";
 
 export default function RegionDropDownBox({ regions, setRegionId }: Props) {
@@ -72,7 +71,7 @@ export default function RegionDropDownBox({ regions, setRegionId }: Props) {
           <div className="h-[14px]"/>
           <div className="flex flex-wrap">
             {regions.map((region) => (
-              <Button onClick={()=>{
+              <Button key={region.id} onClick={()=>{
                 setCurRegion(region);
                 setRegionId(region.id);
                 setIsOpen(false);

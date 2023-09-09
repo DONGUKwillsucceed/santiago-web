@@ -25,7 +25,7 @@ export default function HeaderBar({ needBackButton, loginInfo }: Props) {
             </IconButton>
           ) : null}
           <div className="w-5" />
-          <a href="/"><Image src="santiago.svg" alt="santiago" width={90} height={20} /></a>
+          <a href="/"><Image src="/santiago.svg" alt="santiago" width={90} height={20} /></a>
         </div>
         <div className="flex flex-row">
           {loginInfo ? (
