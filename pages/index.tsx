@@ -14,7 +14,6 @@ import { SimpleMagazineLineDto } from "@/api/dto/magazine/simple-magazine-line.d
 import { AwardedUserLineDto } from "@/api/dto/user/awarded-user-line.dto";
 import { userSerivce } from "@/api/user/user";
 import userStore from "@/store/user-store";
-import { regionSelector } from "@/util/region-selector";
 
 export default function Home() {
   const [regionId, setRegionId] = useState(
@@ -51,9 +50,10 @@ export default function Home() {
     name,
     imageUrl,
   } = userStore();
-  const loginInfo = id !== "" ? { id, name, imageUrl } : null;
+  const [loginInfo, setLoginInfo] = useState<{id: string, name: string, imageUrl: string | null} | null>(null);
 
   useEffect(() => {
+    setLoginInfo({id, name, imageUrl});
     const fetchMagazine = async () => {
       return magazineService.findMany(
         regionId !== "9575b497-f677-4b4a-94fa-1de79763e035" ? regionId : null,
