@@ -1,4 +1,5 @@
 import { Avatar } from "@mui/material";
+import { useRouter } from "next/router";
 
 interface Props {
   id: string;
@@ -9,11 +10,13 @@ interface Props {
 
 export default function UserProfileCard({ id, name, region, imageUrl }: Props) {
   const size = region ? 24 : 18;
+  const router = useRouter();
   return (
     <div
       className="flex flex-row cursor-pointer"
-      onClick={() => {
-        alert(id);
+      onClick={(event) => {
+        event.stopPropagation();
+        router.push(`user/${id}`)
       }}
     >
       <div className="grid place-items-center">

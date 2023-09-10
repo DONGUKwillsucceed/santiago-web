@@ -57,7 +57,9 @@ export default function Home() {
   const [loginInfo, setLoginInfo] = useState<{id: string, name: string, imageUrl: string | null} | null>(null);
 
   useEffect(() => {
-    setLoginInfo({id, name, imageUrl});
+    if(id !== '') {
+      setLoginInfo({ id, name, imageUrl });
+      }
     const fetchMagazine = async () => {
       return magazineService.findMany(
         regionId !== "9575b497-f677-4b4a-94fa-1de79763e035" ? regionId : null,

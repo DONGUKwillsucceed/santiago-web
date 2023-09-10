@@ -44,7 +44,9 @@ export default function MagazineCreate() {
 
   useEffect(() => {
     language = window.navigator.language;
-    setLoginInfo({ id, name, imageUrl });
+    if(id !== '') {
+      setLoginInfo({ id, name, imageUrl });
+      }
     const fetchRegion = async () => {
       return regionService.findMany();
     };

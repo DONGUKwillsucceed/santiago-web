@@ -15,6 +15,7 @@ interface UserState {
     setRegion: (newRegion: string) => void
     setSubscriberCount: (newSubscriberCount: number) => void
     setColumnistCount: (newColumnistCount: number) => void
+    reset: () => void
 }
 
 export const userStore = create(
@@ -31,7 +32,8 @@ export const userStore = create(
             setImageUrl: (newImageUrl) => set({imageUrl: newImageUrl}),
             setRegion: (newRegion: string) => set({region: newRegion}),
             setSubscriberCount: (newSubscriberCount: number) => set({subscriberCount: newSubscriberCount}),
-            setColumnistCount: (newColumnistCount: number) => set({columnistCount: newColumnistCount})
+            setColumnistCount: (newColumnistCount: number) => set({columnistCount: newColumnistCount}),
+            reset: () => set({id: '', name: '', imageUrl: null, region: '', subscriberCount: 0, columnistCount: 0})
 }), {name : 'user-key'}));
 
 

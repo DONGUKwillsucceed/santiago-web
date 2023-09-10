@@ -23,7 +23,9 @@ export default function Magazine(
   let locale = "ko-KR";
 
   useEffect(() => {
-    setLoginInfo({ id, name, imageUrl });
+    if(id !== '') {
+      setLoginInfo({ id, name, imageUrl });
+      }
     locale = window.navigator.language;
   }, []);
   return (
@@ -32,7 +34,7 @@ export default function Magazine(
       <div className="flex justify-center bg-white min-h-screen">
         <div className="h-[18px]" />
         <div className="w-[800px] min-w-min">
-          <h1 className="px-[24px] py-[10px] text-[32px] font-medium">
+          <h1 className="px-[24px] py-[10px] text-[32px] font-medium my-0">
             {data.title}
           </h1>
           <div className="flex pb-[8px] px-[24px]">

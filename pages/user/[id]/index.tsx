@@ -13,9 +13,7 @@ import RegionDropDownBox from "@/components/region-drop-box";
 import SearchBox from "@/components/search-box";
 import SimpleMagazineList from "@/components/simple-magazine-list";
 import {
-  magazineLineDto,
   regionDefault,
-  simpleMagazineLineDto,
 } from "@/const/dummy";
 import userStore from "@/store/user-store";
 import { regionSelector } from "@/util/region-selector";
@@ -57,7 +55,7 @@ export default function User(
   >([]);
   const [isMine, setIsMine] = useState(false);
 
-  const { id, name, imageUrl } = userStore();
+  const { id, name, imageUrl, reset } = userStore();
   const [loginInfo, setLoginInfo] = useState<{
     id: string;
     name: string;
@@ -68,7 +66,9 @@ export default function User(
     locale = window.navigator.language;
     if (props.data.id === id) setIsMine(true);
 
+    if(id !== '') {
     setLoginInfo({ id, name, imageUrl });
+    }
     const fetchMagazine = async () => {
         return magazineService.findMany(
             regionId !== "9575b497-f677-4b4a-94fa-1de79763e035" ? regionId : null,
@@ -148,6 +148,12 @@ export default function User(
       });
   };
 
+  const logOut = () => {
+    reset();
+    window.localStorage.clear()
+    router.push('/')
+  }
+
   return (
     <div>
       <HeaderBar needBackButton={false} loginInfo={loginInfo} />
@@ -225,7 +231,7 @@ export default function User(
             <div className="h-6" />
             {isMine ? (
               <>
-                <div className="w-full bg-white rounded-xl px-3 py-[9px] flex justify-center">
+                <div onClick={logOut} className="w-full bg-white rounded-xl px-3 py-[9px] flex justify-center" >
                   <div className="text-[16px] text-[#E84033]">Log out</div>
                 </div>
                 <div className="h-6" />
@@ -284,7 +290,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     region: regionDefault,
   };
 
-  if (typeof id === "string") {
+  if (typeof id === "string" && id !== "santiago_grag.svg") {
+    console.log(id);
     data = await userSerivce.findUnique(id);
   }
   return {
