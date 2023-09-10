@@ -4,6 +4,7 @@ import LikeButton from "./like-button";
 import ReplyButton from "./reply-button";
 import PhotoLikeButton from "./photo-like-button";
 import WritingLikeButton from "./writing-like-button";
+import { useRouter } from "next/router";
 
 interface Props {
   id: string;
@@ -34,9 +35,12 @@ export default function MagazineContainer({
   replyCount
 }: Props) {
   const thumbnailImageUrl = imageUrl ? imageUrl : "/santiago-default.png";
+  const router = useRouter();
 
   return (
-    <div className="w-[500px] shadow-lg rounded-xl cursor-pointer" onClick={() => alert(id)}>
+    <div className="w-[500px] shadow-lg rounded-xl cursor-pointer" onClick={() => {
+      router.push(`/magazine/${id}`)
+    }}>
       <Image
         className="rounded-t-xl"
         src={thumbnailImageUrl}

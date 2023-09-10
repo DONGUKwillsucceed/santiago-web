@@ -3,6 +3,7 @@ import { UserLineDto } from "@/api/dto/user/user-line.dto";
 import UserProfileCard from "./user-profile-container";
 import { regionSelector } from "@/util/region-selector";
 import { useEffect } from "react";
+import { useRouter } from "next/router";
 
 interface Props {
   id: string;
@@ -36,11 +37,14 @@ export default function SimpleMagazineLineContainer({
       return <div className="w-[16px]" />;
     }
   };
+  const router = useRouter();
 
   return (
     <div
-      onClick={() => alert(id)}
-      className="w-full py-[5px] flex items-center"
+      onClick={() => {
+        router.push(`/magazine/${id}`)
+      }}
+      className="w-full py-[5px] flex items-center hover:cursor-pointer"
     >
       <div>{selectMedal(rank)}</div>
       <div className="flex-1 min-w-0 pl-[10px]">

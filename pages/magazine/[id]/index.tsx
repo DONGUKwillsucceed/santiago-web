@@ -8,7 +8,6 @@ import WritingLikeButton from "@/components/writing-like-button";
 import { userLineDefault } from "@/const/dummy";
 import userStore from "@/store/user-store";
 import { regionSelector } from "@/util/region-selector";
-import { Chip } from "@mui/material";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { useEffect, useRef, useState } from "react";
 
@@ -23,12 +22,11 @@ export default function Magazine(
   } | null>(null);
   const { id, name, imageUrl } = userStore();
   let locale = "ko-KR";
-  const editorRef = useRef<any>(null);
 
   useEffect(() => {
     setLoginInfo({ id, name, imageUrl });
     locale = window.navigator.language;
-  });
+  }, []);
   return (
     <>
       <HeaderBar needBackButton={false} loginInfo={loginInfo} />
