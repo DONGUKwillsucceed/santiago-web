@@ -17,7 +17,8 @@ class MagazineService {
     lang: string | null,
     base: number,
     limit: number,
-    search: string | null
+    search: string | null,
+    userId: string | null
   ) {
     try {
       let url = `${this.url}?query-type=${queryType}&base=${base}&limit=${limit}`;
@@ -29,6 +30,9 @@ class MagazineService {
       }
       if (regionId) {
         url += `&region-id=${regionId}`;
+      }
+      if(userId) {
+        url += `&user-id=${userId}`
       }
       const res = await axios.get<MultiMagazineLineDto>(url);
 
@@ -49,6 +53,7 @@ async findManyForBest(
     lang: string | null,
     base: number,
     limit: number,
+    userId: string | null
   ) {
     try {
       let url = `${this.url}/best?query-type=${queryType}&base=${base}&limit=${limit}`;
@@ -57,6 +62,9 @@ async findManyForBest(
       }
       if (regionId) {
         url += `&region-id=${regionId}`;
+      }
+      if(userId) {
+        url += `&user-id=${userId}`;
       }
       const res = await axios.get<SimpleMagazineLineDto[]>(url);
 

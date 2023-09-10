@@ -7,9 +7,9 @@ interface Props {
   imageUrl: string | null;
 }
 
-export default function UserProfileCard({ id, name, region, imageUrl }: Props) {
-  const size = region ? 24 : 18;
-  return (
+export default function BigUserProfileCard({ id, name, region, imageUrl }: Props) {
+  const size = 72;
+    return (
     <div
       className="flex flex-row cursor-pointer"
       onClick={() => {
@@ -30,8 +30,8 @@ export default function UserProfileCard({ id, name, region, imageUrl }: Props) {
       </div>
       <div className="w-1.5" />
       <div className="flex flex-col justify-center">
-        <div className="text-xs font-medium text-gray-600 truncate">{name}</div>
-        {region ? <div className="text-xs text-gray-500">{region}</div> : null}
+        <div className="text-[18px] font-medium text-gray-600 truncate">{name}</div>
+        {region ? <div className="text-[16px] text-gray-500">{region}</div> : null}
       </div>
     </div>
   );

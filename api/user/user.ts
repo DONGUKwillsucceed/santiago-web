@@ -14,7 +14,7 @@ class UserService {
     regionId: string | null,
     queryType: string,
     base: number,
-    limit: number
+    limit: number,
   ) {
     try {
       let url = `${this.url}/best?query-type=${queryType}&base=${base}&limit=${limit}`;

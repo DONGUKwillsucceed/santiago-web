@@ -65,7 +65,8 @@ export default function Home() {
         isGlobal ? null : window.navigator.language,
         base,
         limit,
-        search
+        search,
+        null
       );
     };
 
@@ -75,7 +76,8 @@ export default function Home() {
         "photo-best",
         isGlobal ? null : window.navigator.language,
         0,
-        5
+        5,
+        null
       );
     };
 
@@ -85,7 +87,8 @@ export default function Home() {
         "writing-best",
         isGlobal ? null : window.navigator.language,
         0,
-        5
+        5,
+        null
       );
     };
 
@@ -159,7 +162,8 @@ export default function Home() {
         isGlobal ? null : window.navigator.language,
         base,
         limit,
-        search
+        search,
+        null
       )
       .then((data) => {
         if (queryType == "hot") {

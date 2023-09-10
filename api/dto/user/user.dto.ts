@@ -7,4 +7,7 @@ export interface UserDto {
     imageUrl: string | null;
     subscriberCount: number;
     columnistCount: number;
+    fanaticScore: number;
+    pictureScore: number;
+    writingScore: number;
 }
