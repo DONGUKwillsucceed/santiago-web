@@ -8,12 +8,14 @@ import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
 import "@toast-ui/editor/dist/toastui-editor.css";
 import { magazineService } from "@/api/magazine/magazine";
+import { useRouter } from "next/router";
 
 const WysiwygEditor = dynamic(() => import("@/components/post-editor"), {
   ssr: false,
 });
 
 export default function MagazineCreate() {
+  const router = useRouter();
   const [loginInfo, setLoginInfo] = useState<{
     id: string;
     name: string;
@@ -22,7 +24,7 @@ export default function MagazineCreate() {
   const [title, setTitle] = useState("");
   const [curTag, setCurTag] = useState("");
   const [tags, setTags] = useState<string[]>([]);
-  const [regionId, setRegionId] = useState("");
+  const [regionId, setRegionId] = useState("9575b497-f677-4b4a-94fa-1de79763e035");
   const [regions, setRegions] = useState<RegionDto[]>([]);
   const [isPress, setIsPress] = useState(false);
   const editorRef = useRef<any>(null);
@@ -78,6 +80,7 @@ export default function MagazineCreate() {
               onClick={() => {
                 if (!isPress) {
                   const content = showContent();
+                  setIsPress(true);
                   magazineService.create({
                     title,
                     content,
@@ -85,8 +88,9 @@ export default function MagazineCreate() {
                     regionId,
                     userId: id,
                     language,
+                  }).then((data)=> {
+                    router.push(`/magazine/${data.id}`)
                   });
-                  setIsPress(true);
                 }
               }}
               sx={{ borderRadius: 50 }}

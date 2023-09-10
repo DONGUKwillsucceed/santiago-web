@@ -10,7 +10,7 @@ import userStore from "@/store/user-store";
 import { regionSelector } from "@/util/region-selector";
 import { Chip } from "@mui/material";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function Magazine(
   props: InferGetServerSidePropsType<typeof getServerSideProps>
@@ -23,6 +23,7 @@ export default function Magazine(
   } | null>(null);
   const { id, name, imageUrl } = userStore();
   let locale = "ko-KR";
+  const editorRef = useRef<any>(null);
 
   useEffect(() => {
     setLoginInfo({ id, name, imageUrl });
@@ -31,38 +32,37 @@ export default function Magazine(
   return (
     <>
       <HeaderBar needBackButton={false} loginInfo={loginInfo} />
-      <div className="flex justify-center bg-white">
+      <div className="flex justify-center bg-white min-h-screen">
         <div className="h-[18px]" />
-        <div className="w-[1200px] min-w-min">
-          <h1 className="px-[32px] py-[10px] text-[32px] font-medium">
+        <div className="w-[800px] min-w-min">
+          <h1 className="px-[24px] py-[10px] text-[32px] font-medium">
             {data.title}
           </h1>
-          <div className="flex pb-[8px] px-[32px]">
-            <PhotoLikeButton magazineId={id} count={data.photoLikeCount} />
+          <div className="flex pb-[8px] px-[24px]">
+            <PhotoLikeButton magazineId={data.id} count={data.photoLikeCount} />
             <div className="px-[5px]" />
-            <WritingLikeButton magazineId={id} count={data.writingLikeCount} />
+            <WritingLikeButton
+              magazineId={data.id}
+              count={data.writingLikeCount}
+            />
           </div>
-          <div className="px-[32px] flex justify-between">
+          <div className="px-[24px] flex justify-between items-center">
             <UserProfileCard
               id={data.writer.id}
               name={data.writer.name}
               region={regionSelector(data.writer.region, locale)}
               imageUrl={data.writer.imageUrl}
             />
-            {data.createdAt}
+            <div className="text-[#868E96] text-[12px]">{data.createdAt}</div>
           </div>
-          <div className="px-[32px] flex">
-            {data.tags.map((tag: { id: string; tag: string }) => (
-              <>
-                <Chip label={tag.tag} variant="outlined" />
-                <div className="w-[10px]"></div>
-              </>
-            ))}
-          </div>
-          <div className="h-[32px]"/>
-          <main>
-            <div dangerouslySetInnerHTML={{ __html: data.content }}/>
-          </main>
+          <div className="h-[18px]" />
+          <hr />
+          <div className="h-[32px]" />
+          <div
+            className="px-[24px]"
+            dangerouslySetInnerHTML={{ __html: data.content }}
+          />
+          <div className="h-[200px]" />
         </div>
       </div>
     </>
