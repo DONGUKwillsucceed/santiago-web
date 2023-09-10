@@ -36,13 +36,13 @@ export default function MagazineContainer({
   const thumbnailImageUrl = imageUrl ? imageUrl : "/santiago-default.png";
 
   return (
-    <div className="w-5/6 shadow-lg rounded-xl cursor-pointer" onClick={() => alert(id)}>
+    <div className="w-[500px] shadow-lg rounded-xl cursor-pointer" onClick={() => alert(id)}>
       <Image
         className="rounded-t-xl"
         src={thumbnailImageUrl}
         alt="thumbnail image"
-        width={600}
-        height={300}
+        width={500}
+        height={280}
       />
       <div className="px-4 py-[8px] text-base font-medium truncate">
         {title}

@@ -15,7 +15,7 @@ export default function SearchBox({ setSearch, searchData }: Props) {
       <div className="w-[32rem] flex justify-center items-center">
         <div className="w-full lg:h-12 md:h-10 rounded-full flex px-6 bg-white">
           <input
-            className="outline focus:outline-0 outline-0 w-full"
+            className="outline focus:outline-0 outline-0 w-full border-0"
             onChange={(e) => {
               setSearch(e.target.value);
             }}
