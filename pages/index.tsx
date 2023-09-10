@@ -14,8 +14,12 @@ import { SimpleMagazineLineDto } from "@/api/dto/magazine/simple-magazine-line.d
 import { AwardedUserLineDto } from "@/api/dto/user/awarded-user-line.dto";
 import { userSerivce } from "@/api/user/user";
 import userStore from "@/store/user-store";
+import { IconButton } from "@mui/material";
+import { Edit } from "@mui/icons-material";
+import { useRouter } from "next/router";
 
 export default function Home() {
+  const router = useRouter();
   const [regionId, setRegionId] = useState(
     "9575b497-f677-4b4a-94fa-1de79763e035"
   );
@@ -226,7 +230,18 @@ export default function Home() {
             </div>
           </div>
           <div className="w-[42rem] py-6">
+            <div className="flex justify-center">
+              <div className="w-12"/>
             <SearchBox setSearch={setSearch} searchData={searchData} />
+            <div className="w-2"/>
+            <IconButton onClick={
+              ()=> {
+                router.push('/magazine/create')
+              }
+            }>
+                <Edit/>
+            </IconButton>
+            </div>
             <div className="h-6" />
             <SimpleMagazineList
               queryType={queryType}
