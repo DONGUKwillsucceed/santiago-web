@@ -10,39 +10,48 @@ import { regionSelector } from "@/util/region-selector";
 
 export default function SignIn() {
   const router = useRouter();
-  const {setId, setName, setImageUrl, setRegion, setSubscriberCount, setColumnistCount} = userStore();
+  const {
+    setId,
+    setName,
+    setImageUrl,
+    setRegion,
+    setSubscriberCount,
+    setColumnistCount,
+  } = userStore();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isOpenSignInFail, setIsOpenSignInFail] = useState(false);
-  let locale = 'ko-KR'
+  let locale = "ko-KR";
 
-  const onClick = ()=> {
+  const onClick = () => {
     authService.signIn({ email, password }).then((data) => {
       if (data.isSuccess) {
         localStorage.setItem("userId", data.userId);
         localStorage.setItem("accessToken", data.accessToken);
         localStorage.setItem("refreshToken", data.refreshToken);
-        userSerivce.findUnique(data.userId).then((data)=> {
-          if(data) {
+        userSerivce.findUnique(data.userId).then((data) => {
+          if (data) {
             setId(data.id);
             setName(data.name);
             setImageUrl(data.imageUrl);
             setRegion(regionSelector(data.region, locale));
             setSubscriberCount(data.subscriberCount);
             setColumnistCount(data.columnistCount);
+            router.push("/");
+          } else {
+            setIsOpenSignInFail(true);
           }
         });
-        router.push("/");
       } else {
         setIsOpenSignInFail(true);
       }
     });
-  }
+  };
 
-  useEffect(()=>{
+  useEffect(() => {
     locale = window.navigator.language;
-  })
+  });
 
   return (
     <div>

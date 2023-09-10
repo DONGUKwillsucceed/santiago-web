@@ -14,7 +14,7 @@ import { SimpleMagazineLineDto } from "@/api/dto/magazine/simple-magazine-line.d
 import { AwardedUserLineDto } from "@/api/dto/user/awarded-user-line.dto";
 import { userSerivce } from "@/api/user/user";
 import userStore from "@/store/user-store";
-import { IconButton } from "@mui/material";
+import { IconButton, Snackbar } from "@mui/material";
 import { Edit } from "@mui/icons-material";
 import { useRouter } from "next/router";
 
@@ -23,6 +23,7 @@ export default function Home() {
   const [regionId, setRegionId] = useState(
     "9575b497-f677-4b4a-94fa-1de79763e035"
   );
+  const [isOpenWarning, setIsOpenWarning] = useState(false);
   const [queryType, setQueryType] = useState("hot");
   const [base, setBase] = useState(0);
   const [limit, setLimit] = useState(12);
@@ -242,7 +243,11 @@ export default function Home() {
             <div className="w-2"/>
             <IconButton onClick={
               ()=> {
-                router.push('/magazine/create')
+                if(id !== '') {
+                  router.push('/magazine/create')
+                } else {
+                  setIsOpenWarning(true);
+                }
               }
             }>
                 <Edit/>
@@ -260,6 +265,14 @@ export default function Home() {
           </div>
         </div>
       </div>
+      <Snackbar
+        open={isOpenWarning}
+        onClose={() => {
+          setIsOpenWarning(false);
+        }}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        message="Sorry, You have to sign in first."
+      />
     </div>
   );
 }

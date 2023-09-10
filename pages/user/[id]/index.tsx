@@ -12,9 +12,7 @@ import HeaderBar from "@/components/header-bar";
 import RegionDropDownBox from "@/components/region-drop-box";
 import SearchBox from "@/components/search-box";
 import SimpleMagazineList from "@/components/simple-magazine-list";
-import {
-  regionDefault,
-} from "@/const/dummy";
+import { regionDefault } from "@/const/dummy";
 import userStore from "@/store/user-store";
 import { regionSelector } from "@/util/region-selector";
 import { Edit } from "@mui/icons-material";
@@ -66,56 +64,57 @@ export default function User(
     locale = window.navigator.language;
     if (props.data.id === id) setIsMine(true);
 
-    if(id !== '') {
-    setLoginInfo({ id, name, imageUrl });
+    if (id !== "") {
+      setLoginInfo({ id, name, imageUrl });
     }
     const fetchMagazine = async () => {
-        return magazineService.findMany(
-            regionId !== "9575b497-f677-4b4a-94fa-1de79763e035" ? regionId : null,
-            queryType,
-            isGlobal ? null : window.navigator.language,
-            base,
-            limit,
-            search,
-            id
-          );
+      return magazineService.findMany(
+        regionId !== "9575b497-f677-4b4a-94fa-1de79763e035" ? regionId : null,
+        queryType,
+        isGlobal ? null : window.navigator.language,
+        base,
+        limit,
+        search,
+        id
+      );
     };
 
     const fetchBestWritingMagazine = async () => {
-        return magazineService.findManyForBest(
-            regionId !== "9575b497-f677-4b4a-94fa-1de79763e035" ? regionId : null,
-            "writing-best",
-            isGlobal ? null : window.navigator.language,
-            0,
-            5,
-            id
-          );    };
+      return magazineService.findManyForBest(
+        regionId !== "9575b497-f677-4b4a-94fa-1de79763e035" ? regionId : null,
+        "writing-best",
+        isGlobal ? null : window.navigator.language,
+        0,
+        5,
+        id
+      );
+    };
 
     const fetchBestPhotoMagazine = async () => {
-        return magazineService.findManyForBest(
-            regionId !== "9575b497-f677-4b4a-94fa-1de79763e035" ? regionId : null,
-            "photo-best",
-            isGlobal ? null : window.navigator.language,
-            0,
-            5,
-            id
-          );
+      return magazineService.findManyForBest(
+        regionId !== "9575b497-f677-4b4a-94fa-1de79763e035" ? regionId : null,
+        "photo-best",
+        isGlobal ? null : window.navigator.language,
+        0,
+        5,
+        id
+      );
     };
 
     fetchMagazine().then((data) => {
-        if (queryType == "hot") {
-          setHotMagazineList(data);
-        } else {
-          setRecentMagazineList(data);
-        }
-      });
+      if (queryType == "hot") {
+        setHotMagazineList(data);
+      } else {
+        setRecentMagazineList(data);
+      }
+    });
 
     fetchBestPhotoMagazine().then((data) => {
-        setBestPhotoMagazineList(data);
-      });
+      setBestPhotoMagazineList(data);
+    });
     fetchBestWritingMagazine().then((data) => {
-        setBestWritingMagazineList(data);
-      });
+      setBestWritingMagazineList(data);
+    });
   }, [queryType, isGlobal, regionId, isGlobal, base, limit]);
 
   useEffect(() => {
@@ -150,9 +149,9 @@ export default function User(
 
   const logOut = () => {
     reset();
-    window.localStorage.clear()
-    router.push('/')
-  }
+    window.localStorage.clear();
+    router.push("/");
+  };
 
   return (
     <div>
@@ -231,11 +230,14 @@ export default function User(
             <div className="h-6" />
             {isMine ? (
               <>
-                <div onClick={logOut} className="w-full bg-white rounded-xl px-3 py-[9px] flex justify-center" >
+                <div
+                  onClick={logOut}
+                  className="w-full bg-white rounded-xl px-3 py-[9px] flex justify-center hover:cursor-pointer"
+                >
                   <div className="text-[16px] text-[#E84033]">Log out</div>
                 </div>
                 <div className="h-6" />
-                <div className="w-full bg-white rounded-xl px-3 py-[9px] flex justify-center">
+                <div className="w-full bg-white rounded-xl px-3 py-[9px] flex justify-center hover:cursor-pointer">
                   <div className="text-[16px] text-[#E84033]">
                     Account cancellation
                   </div>
@@ -247,16 +249,22 @@ export default function User(
           <div>
             <div className="w-[42rem] py-6">
               <div className="flex justify-center">
-                <div className="w-12" />
-                <SearchBox setSearch={setSearch} searchData={searchData} />
-                <div className="w-2" />
-                <IconButton
-                  onClick={() => {
-                    router.push("/magazine/create");
-                  }}
-                >
-                  <Edit />
-                </IconButton>
+                {isMine ? (
+                  <>
+                    <div className="w-12" />
+                    <SearchBox setSearch={setSearch} searchData={searchData} />
+                    <div className="w-2" />
+                    <IconButton
+                      onClick={() => {
+                        router.push("/magazine/create");
+                      }}
+                    >
+                      <Edit />
+                    </IconButton>
+                  </>
+                ) : (
+                  <SearchBox setSearch={setSearch} searchData={searchData} />
+                )}
               </div>
               <div className="h-6" />
               <SimpleMagazineList
@@ -290,8 +298,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     region: regionDefault,
   };
 
-  if (typeof id === "string" && id !== "santiago_grag.svg") {
-    console.log(id);
+  if (typeof id === "string" && id !== "santiago_gray.svg") {
     data = await userSerivce.findUnique(id);
   }
   return {

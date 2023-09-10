@@ -1,6 +1,7 @@
 import { magazineService } from "@/api/magazine/magazine";
 import userStore from "@/store/user-store";
 import { CameraAlt } from "@mui/icons-material";
+import { Snackbar } from "@mui/material";
 import { MouseEventHandler, useState } from "react";
 
 interface Props {
@@ -10,6 +11,7 @@ interface Props {
 
 export default function PhotoLikeButton({ magazineId ,count }: Props) {
   const [isPressed, setIsPressed] = useState(false);
+  const [isOpenWarning, setIsOpenWarning] = useState(false);
   const [curCount, setCurCount] = useState(count);
   const {id} = userStore();
 
@@ -17,14 +19,18 @@ export default function PhotoLikeButton({ magazineId ,count }: Props) {
     <div
       onClick={(event) => {
         event.stopPropagation();
-        if (!isPressed) {
-          setCurCount(curCount + 1);
-          setIsPressed(true);
-          magazineService.increaseLike(magazineId, 'photo', id);
+        if(id !== '') {
+          if (!isPressed) {
+            setCurCount(curCount + 1);
+            setIsPressed(true);
+            magazineService.increaseLike(magazineId, 'photo', id);
+          } else {
+            setCurCount(curCount - 1);
+            setIsPressed(false);
+            magazineService.decreaseLike(magazineId, 'photo', id);
+          }
         } else {
-          setCurCount(curCount - 1);
-          setIsPressed(false);
-          magazineService.decreaseLike(magazineId, 'photo', id);
+          setIsOpenWarning(true);
         }
       }}
       className="flex items-center text-xs text-gray-500"
@@ -36,6 +42,15 @@ export default function PhotoLikeButton({ magazineId ,count }: Props) {
       )}
       <div className="w-[3px]" />
       {curCount}
+
+      <Snackbar
+        open={isOpenWarning}
+        onClose={() => {
+          setIsOpenWarning(false);
+        }}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        message="Sorry, You have to sign in first."
+      />
     </div>
   );
 }
