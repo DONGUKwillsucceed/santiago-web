@@ -78,7 +78,9 @@ class UserService {
       } else {
         throw new Error();
       }
-    } catch (err) {}
+    } catch (err) {
+      throw new NetworkError(err as string);
+    }
   }
 }
 

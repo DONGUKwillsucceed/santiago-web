@@ -2,14 +2,13 @@ import { MagazineDto } from "@/api/dto/magazine/magazine.dto";
 import { magazineService } from "@/api/magazine/magazine";
 import HeaderBar from "@/components/header-bar";
 import PhotoLikeButton from "@/components/photo-like-button";
-import ReplyButton from "@/components/reply-button";
 import UserProfileCard from "@/components/user-profile-container";
 import WritingLikeButton from "@/components/writing-like-button";
 import { userLineDefault } from "@/const/dummy";
 import userStore from "@/store/user-store";
 import { regionSelector } from "@/util/region-selector";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Magazine(
   props: InferGetServerSidePropsType<typeof getServerSideProps>
