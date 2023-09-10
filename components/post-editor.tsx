@@ -1,8 +1,11 @@
 import { Editor } from "@toast-ui/react-editor";
-import { useRef } from "react";
+import { Dispatch, MutableRefObject, SetStateAction } from "react";
 
-export default function PostEditor() {
-  const editorRef = useRef(null);
+interface Props {
+    editorRef : MutableRefObject<any>
+}
+
+export default function PostEditor({editorRef}: Props) {
   const toolbarItems = [
     ["heading", "bold", "italic", "strike"],
     ["hr"],

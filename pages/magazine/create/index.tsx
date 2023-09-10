@@ -5,8 +5,9 @@ import RegionDropDownBox from "@/components/region-drop-box";
 import userStore from "@/store/user-store";
 import { Button, Chip, TextField } from "@mui/material";
 import dynamic from "next/dynamic";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "@toast-ui/editor/dist/toastui-editor.css";
+import { magazineService } from "@/api/magazine/magazine";
 
 const WysiwygEditor = dynamic(() => import("@/components/post-editor"), {
   ssr: false,
@@ -23,11 +24,24 @@ export default function MagazineCreate() {
   const [tags, setTags] = useState<string[]>([]);
   const [regionId, setRegionId] = useState("");
   const [regions, setRegions] = useState<RegionDto[]>([]);
-  const [content, setContent] = useState("");
+  const [isPress, setIsPress] = useState(false);
+  const editorRef = useRef<any>(null);
+  let language = "ko-KR";
+
+  const showContent = () => {
+    if (editorRef.current) {
+      const editorIns = editorRef.current.getInstance();
+      const contentHtml = editorIns.getHTML();
+      return contentHtml;
+    } else {
+      return "";
+    }
+  };
 
   const { id, name, imageUrl } = userStore();
 
   useEffect(() => {
+    language = window.navigator.language;
     setLoginInfo({ id, name, imageUrl });
     const fetchRegion = async () => {
       return regionService.findMany();
@@ -54,8 +68,30 @@ export default function MagazineCreate() {
                 setTitle(e.target.value);
               }}
             />
-            <div className="w-[70px]" />
-            <Button variant="outlined" sx={{ borderRadius: 50 }} size="small">
+            <div className="w-[420px] px-[10px] flex items-center text-[12px] text-[#79747E]">
+              <p>country</p>
+              <div className="w-[10px]" />
+              <RegionDropDownBox regions={regions} setRegionId={setRegionId} />
+            </div>
+            <div className="w-[10px]" />
+            <Button
+              onClick={() => {
+                if (!isPress) {
+                  const content = showContent();
+                  magazineService.create({
+                    title,
+                    content,
+                    tags,
+                    regionId,
+                    userId: id,
+                    language,
+                  });
+                  setIsPress(true);
+                }
+              }}
+              sx={{ borderRadius: 50 }}
+              size="small"
+            >
               Confirm
             </Button>
           </div>
@@ -78,11 +114,6 @@ export default function MagazineCreate() {
                 }
               }}
             />
-            <div className="px-[10px] flex items-center text-[12px] text-[#79747E]">
-            <p>country</p>
-            <div className="w-[10px]" />
-            <RegionDropDownBox regions={regions} setRegionId={setRegionId} />
-          </div>
           </div>
           <div className="h-[10px]" />
           <div className="px-[10px] flex">
@@ -104,7 +135,7 @@ export default function MagazineCreate() {
             )}
           </div>
           <div className="h-[10px]" />
-          <WysiwygEditor/>
+          <WysiwygEditor editorRef={editorRef} />
           <div className="h-[32px]" />
         </div>
       </div>

@@ -1,9 +1,12 @@
-import axios, { HttpStatusCode } from "axios";
+import axios, { AxiosResponse, HttpStatusCode } from "axios";
 import { serverUrl } from "../url";
 import { MultiMagazineLineDto } from "../dto/magazine/multi-magazine-line.dto";
 import { NetworkError } from "@/error/network-error";
 import { NotFoundError } from "@/error/notfound-error";
 import { SimpleMagazineLineDto } from "../dto/magazine/simple-magazine-line.dto";
+import { CreateMagazineDto } from "../dto/magazine/create-magazine.dto";
+import { CreateMagazineResDto } from "../dto/magazine/create-magazine-res.dto";
+import { MagazineDto } from "../dto/magazine/magazine.dto";
 
 class MagazineService {
   private url = `${serverUrl}/magazine`;
@@ -69,6 +72,20 @@ async findManyForBest(
     }
   }
 
+  async findUnique(id: string) {
+    try {
+      const url = `${this.url}/${id}`;
+      const res = await axios.get<MagazineDto>(url);
+      if (res.status == HttpStatusCode.Ok || res.status === HttpStatusCode.Created) {
+        return res.data;
+      } else {
+        throw new Error();
+      }
+    } catch(err) {
+      throw new NetworkError(err as string);
+    }
+  }
+
   async increaseLike(magazineId: string, type: string, userId: string) {
     try {
       const url = `${this.url}/${magazineId}/like?type=${type}&user-id=${userId}`;
@@ -94,6 +111,27 @@ async findManyForBest(
       if (res.status == HttpStatusCode.Ok || res.status === HttpStatusCode.Created) {
         return res.data;
       } else if (res.status == HttpStatusCode.NotFound) {
+        throw new NotFoundError("Not Found");
+      } else {
+        throw new Error();
+      }
+    } catch(err) {
+      throw new NetworkError(err as string);
+    }
+  }
+
+  async create(dto: CreateMagazineDto) {
+    try {
+      const url = this.url;
+      const res = await axios.post<CreateMagazineDto, AxiosResponse<CreateMagazineResDto>>(url, dto, {
+        headers: {
+          "Content-Type": `application/json`,
+        },
+      });
+      
+      if(res.status === HttpStatusCode.Ok || res.status === HttpStatusCode.Created) {
+        return res.data;
+      } else if(res.status === HttpStatusCode.NotFound) {
         throw new NotFoundError("Not Found");
       } else {
         throw new Error();

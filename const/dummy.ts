@@ -1,5 +1,24 @@
 import { MagazineLineDto } from "@/api/dto/magazine/magazine-line.dto";
 
+export const userLineDefault = {
+  id: "abc",
+      name: "sheep",
+      imageUrl: null,
+      region: {
+        id: "default",
+        name_ch: "全部",
+        name_fr: "Totalité",
+        name_ge: "Gesamt",
+        name_en: "All",
+        name_hk: "全部",
+        name_it: "Intero",
+        name_jp: "全体",
+        name_kr: "전체",
+        name_vi: "Toàn bộ",
+        flag: "🌏",
+      },
+}
+
 export const simpleMagazineLineDto = [
   {
     id: "abcd",

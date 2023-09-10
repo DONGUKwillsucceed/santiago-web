@@ -51,8 +51,6 @@ export default function MagazineContainer({
         <PhotoLikeButton magazineId={id} count={photoLikeCount} />
         <div className="px-[5px]"/>
         <WritingLikeButton magazineId={id} count={writingLikeCount}/>
-        <div className="px-[5px]"/>
-        <ReplyButton count={replyCount} onClick={()=>{}}/>
       </div>
       <div className="flex justify-between px-4">
         <UserProfileCard
