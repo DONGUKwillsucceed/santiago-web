@@ -34,7 +34,7 @@ export default function MagazineEdit() {
   const editorRef = useRef<any>(null);
   const [defaultRegion, setDefaultRegion] = useState<RegionDto>(regionDefault);
   let language = "ko-KR";
-  const { magazineId, title, regionId, content, tags } = magazineEditStore();
+  const { magazineId, title, regionId, content, tags, reset } = magazineEditStore();
 
   const showContent = () => {
     if (editorRef.current) {
@@ -110,6 +110,7 @@ export default function MagazineEdit() {
                       regionId: newRegionId,
                     })
                     .then((data) => {
+                      reset();
                       router.push(`/magazine/${magazineId}`);
                     });
                 }

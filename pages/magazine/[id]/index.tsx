@@ -73,6 +73,24 @@ export default function Magazine(
                   edit
                 </div>
               ) : null}
+              { isMine ? (
+                <>
+                <div className="w-4"/>
+                <div
+                  className="text-[#05C3B6] text-xs hover:cursor-pointer"
+                  onClick={() => {
+                    setId(data.id);
+                    setTitle(data.title);
+                    setContent(data.content);
+                    setRegionId(data.regionId);
+                    setTags(data.tags.map((tag: {id: string, tag: string})=> tag.tag))
+                    router.push(`/magazine/${data.id}/edit-html`);
+                  }}
+                >
+                  edit html
+                </div>
+                </>
+              ) : null}
               {!isMine ? (
                 <div className="text-[#E84033] text-xs hover:cursor-pointer">
                   report

@@ -160,7 +160,7 @@ export default function User(
         <div className="w-[64rem] flex justify-between">
           <div className="w-[16rem] py-6">
             <div className="w-full bg-white rounded-xl">
-              <RegionDropDownBox regions={regions} setRegionId={setRegionId} />
+              <RegionDropDownBox regions={regions} setRegionId={setRegionId} defaultRegion={regionDefault} />
             </div>
             <div className="h-3" />
             <div className="w-full bg-white rounded-xl px-3">
