@@ -9,6 +9,7 @@ import { useEffect, useRef, useState } from "react";
 import "@toast-ui/editor/dist/toastui-editor.css";
 import { magazineService } from "@/api/magazine/magazine";
 import { useRouter } from "next/router";
+import { regionDefault } from "@/const/dummy";
 
 const WysiwygEditor = dynamic(() => import("@/components/post-editor"), {
   ssr: false,
@@ -75,7 +76,7 @@ export default function MagazineCreate() {
             <div className="w-[420px] px-[10px] flex items-center text-[12px] text-[#79747E]">
               <p>country</p>
               <div className="w-[10px]" />
-              <RegionDropDownBox regions={regions} setRegionId={setRegionId} />
+              <RegionDropDownBox regions={regions} setRegionId={setRegionId} defaultRegion={regionDefault} />
             </div>
             <div className="w-[10px]" />
             <Button
@@ -141,7 +142,7 @@ export default function MagazineCreate() {
             )}
           </div>
           <div className="h-[10px]" />
-          <WysiwygEditor editorRef={editorRef} />
+          <WysiwygEditor editorRef={editorRef} initialValue={""} />
           <div className="h-[32px]" />
         </div>
       </div>

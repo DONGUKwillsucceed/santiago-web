@@ -17,6 +17,7 @@ import userStore from "@/store/user-store";
 import { IconButton, Snackbar } from "@mui/material";
 import { Edit } from "@mui/icons-material";
 import { useRouter } from "next/router";
+import { regionDefault } from "@/const/dummy";
 
 export default function Home() {
   const router = useRouter();
@@ -184,7 +185,7 @@ export default function Home() {
         <div className="w-[64rem] flex justify-between">
           <div className="w-[16rem] py-6">
             <div className="w-full bg-white rounded-xl">
-              <RegionDropDownBox regions={regions} setRegionId={setRegionId} />
+              <RegionDropDownBox regions={regions} setRegionId={setRegionId} defaultRegion={regionDefault}/>
             </div>
             <div className="h-3" />
             <div className="w-full bg-white rounded-xl px-3">

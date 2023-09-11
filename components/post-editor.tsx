@@ -3,9 +3,10 @@ import { Dispatch, MutableRefObject, SetStateAction } from "react";
 
 interface Props {
     editorRef : MutableRefObject<any>
+    initialValue: string;
 }
 
-export default function PostEditor({editorRef}: Props) {
+export default function PostEditor({editorRef, initialValue}: Props) {
   const toolbarItems = [
     ["heading", "bold", "italic", "strike"],
     ["hr"],
@@ -18,7 +19,7 @@ export default function PostEditor({editorRef}: Props) {
 
   return (
     <Editor
-    initialValue="typing here!"
+    initialValue={initialValue}
     previewStyle="vertical"
     height="100vh"
     initialEditType="wysiwyg"

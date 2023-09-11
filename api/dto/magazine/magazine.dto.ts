@@ -14,4 +14,5 @@ export interface MagazineDto {
     didILikePhoto: boolean;
     didILikeWriting: boolean;
     writer: UserLineDto;
+    regionId: string;
 }

@@ -5,27 +5,35 @@ import PhotoLikeButton from "@/components/photo-like-button";
 import UserProfileCard from "@/components/user-profile-container";
 import WritingLikeButton from "@/components/writing-like-button";
 import { userLineDefault } from "@/const/dummy";
+import magazineEditStore from "@/store/magazine-edit-store";
 import userStore from "@/store/user-store";
 import { regionSelector } from "@/util/region-selector";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 export default function Magazine(
   props: InferGetServerSidePropsType<typeof getServerSideProps>
 ) {
   const { data } = props;
+  const router = useRouter();
+  const [isMine, setIsMine] = useState(false);
   const [loginInfo, setLoginInfo] = useState<{
     id: string;
     name: string;
     imageUrl: string | null;
   } | null>(null);
   const { id, name, imageUrl } = userStore();
+  const {setId, setTags, setTitle, setContent, setRegionId} = magazineEditStore();
   let locale = "ko-KR";
 
   useEffect(() => {
-    if(id !== '') {
+    if(data.writer.id === id) {
+      setIsMine(true);
+    }
+    if (id !== "") {
       setLoginInfo({ id, name, imageUrl });
-      }
+    }
     locale = window.navigator.language;
   }, []);
   return (
@@ -37,13 +45,40 @@ export default function Magazine(
           <h1 className="px-[24px] py-[10px] text-[32px] font-medium my-0">
             {data.title}
           </h1>
-          <div className="flex pb-[8px] px-[24px]">
-            <PhotoLikeButton magazineId={data.id} count={data.photoLikeCount} />
-            <div className="px-[5px]" />
-            <WritingLikeButton
-              magazineId={data.id}
-              count={data.writingLikeCount}
-            />
+          <div className="flex justify-between items-center pb-[8px] px-[24px]">
+            <div className="flex">
+              <PhotoLikeButton
+                magazineId={data.id}
+                count={data.photoLikeCount}
+              />
+              <div className="px-[5px]" />
+              <WritingLikeButton
+                magazineId={data.id}
+                count={data.writingLikeCount}
+              />
+            </div>
+            <div className="flex">
+              { isMine ? (
+                <div
+                  className="text-[#05C3B6] text-xs hover:cursor-pointer"
+                  onClick={() => {
+                    setId(data.id);
+                    setTitle(data.title);
+                    setContent(data.content);
+                    setRegionId(data.regionId);
+                    setTags(data.tags.map((tag: {id: string, tag: string})=> tag.tag))
+                    router.push(`/magazine/${data.id}/edit`);
+                  }}
+                >
+                  edit
+                </div>
+              ) : null}
+              {!isMine ? (
+                <div className="text-[#E84033] text-xs hover:cursor-pointer">
+                  report
+                </div>
+              ) : null}
+            </div>
           </div>
           <div className="px-[24px] flex justify-between items-center">
             <UserProfileCard
@@ -86,6 +121,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     didILikePhoto: false,
     didILikeWriting: false,
     writer: userLineDefault,
+    regionId: "",
   };
   if (typeof id === "string") {
     data = await magazineService.findUnique(id);

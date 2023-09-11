@@ -7,6 +7,7 @@ import { SimpleMagazineLineDto } from "../dto/magazine/simple-magazine-line.dto"
 import { CreateMagazineDto } from "../dto/magazine/create-magazine.dto";
 import { CreateMagazineResDto } from "../dto/magazine/create-magazine-res.dto";
 import { MagazineDto } from "../dto/magazine/magazine.dto";
+import { UpdateMagazineDto } from "../dto/magazine/update-magazine.dto";
 
 class MagazineService {
   private url = `${serverUrl}/magazine`;
@@ -137,6 +138,26 @@ async findManyForBest(
         },
       });
       
+      if(res.status === HttpStatusCode.Ok || res.status === HttpStatusCode.Created) {
+        return res.data;
+      } else if(res.status === HttpStatusCode.NotFound) {
+        throw new NotFoundError("Not Found");
+      } else {
+        throw new Error();
+      }
+    } catch(err) {
+      throw new NetworkError(err as string);
+    }
+  }
+
+  async update(magazineId: string ,dto: UpdateMagazineDto) {
+    try{
+      const res = await axios.put<UpdateMagazineDto>(`${this.url}/${magazineId}`, dto, {
+        headers: {
+          "Content-Type": `application/json`,
+        },
+      });
+
       if(res.status === HttpStatusCode.Ok || res.status === HttpStatusCode.Created) {
         return res.data;
       } else if(res.status === HttpStatusCode.NotFound) {
