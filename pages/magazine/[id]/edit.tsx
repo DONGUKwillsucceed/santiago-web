@@ -11,6 +11,7 @@ import { magazineService } from "@/api/magazine/magazine";
 import { useRouter } from "next/router";
 import magazineEditStore from "@/store/magazine-edit-store";
 import { regionDefault } from "@/const/dummy";
+import { UploadImageResDto } from "@/api/dto/magazine/upload-image-res.dto";
 
 const WysiwygEditor = dynamic(() => import("@/components/post-editor"), {
   ssr: false,
@@ -31,6 +32,7 @@ export default function MagazineEdit() {
   );
   const [regions, setRegions] = useState<RegionDto[]>([]);
   const [isPress, setIsPress] = useState(false);
+  const [images, setImages] = useState<UploadImageResDto[]>([]);
   const editorRef = useRef<any>(null);
   const [defaultRegion, setDefaultRegion] = useState<RegionDto>(regionDefault);
   let language = "ko-KR";
@@ -45,6 +47,17 @@ export default function MagazineEdit() {
       return "";
     }
   };
+
+  const onUploadImage = (image: Blob, callback: any) => {
+    magazineService.uploadImage(image).then((data)=> {
+      if(data) {
+        console.log(data.id);
+        images.push(data);
+        setImages(images);
+        callback(data.url, 'image');
+      }
+    });
+  }
 
   const { id, name, imageUrl } = userStore();
 
@@ -161,7 +174,7 @@ export default function MagazineEdit() {
             )}
           </div>
           <div className="h-[10px]" />
-          <WysiwygEditor editorRef={editorRef} initialValue={content} />
+          <WysiwygEditor editorRef={editorRef} initialValue={content} onUploadImage={undefined} />
           <div className="h-[32px]" />
         </div>
       </div>
