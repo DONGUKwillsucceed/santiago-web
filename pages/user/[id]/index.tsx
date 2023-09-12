@@ -75,7 +75,7 @@ export default function User(
         base,
         limit,
         search,
-        id
+        props.data.id
       );
     };
 

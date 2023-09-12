@@ -7,7 +7,7 @@ export default function EmptyCase() {
       <div className="flex-col content-center">
         <Image
           className="m-auto"
-          src="santiago_gray.svg"
+          src="/santiago_gray.svg"
           alt="santiago"
           width={120}
           height={20}
