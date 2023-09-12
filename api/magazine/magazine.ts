@@ -8,6 +8,7 @@ import { CreateMagazineDto } from "../dto/magazine/create-magazine.dto";
 import { CreateMagazineResDto } from "../dto/magazine/create-magazine-res.dto";
 import { MagazineDto } from "../dto/magazine/magazine.dto";
 import { UpdateMagazineDto } from "../dto/magazine/update-magazine.dto";
+import { UploadImageResDto } from "../dto/magazine/upload-image-res.dto";
 
 class MagazineService {
   private url = `${serverUrl}/magazine`;
@@ -148,6 +149,26 @@ async findManyForBest(
     } catch(err) {
       throw new NetworkError(err as string);
     }
+  }
+
+  async uploadImage(data: Blob) {
+    try {
+      const formData = new FormData();
+      formData.append('file', data);
+      const res = await axios.post<FormData, AxiosResponse<UploadImageResDto>>(`${this.url}/upload-image`, formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
+    });
+      if(res.status === HttpStatusCode.Ok || res.status === HttpStatusCode.Created) {
+        return res.data;
+      } else {
+        throw new Error();
+      }
+    } catch(err) {
+      console.error(err)
+    }
+
   }
 
   async update(magazineId: string ,dto: UpdateMagazineDto) {

@@ -5,4 +5,5 @@ export interface CreateMagazineDto {
     userId: string;
     tags: string[];
     language: string;
+    imageUrlIds: string[];
 }

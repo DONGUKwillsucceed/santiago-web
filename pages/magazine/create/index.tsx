@@ -10,6 +10,7 @@ import "@toast-ui/editor/dist/toastui-editor.css";
 import { magazineService } from "@/api/magazine/magazine";
 import { useRouter } from "next/router";
 import { regionDefault } from "@/const/dummy";
+import { UploadImageResDto } from "@/api/dto/magazine/upload-image-res.dto";
 
 const WysiwygEditor = dynamic(() => import("@/components/post-editor"), {
   ssr: false,
@@ -24,6 +25,7 @@ export default function MagazineCreate() {
   } | null>(null);
   const [title, setTitle] = useState("");
   const [curTag, setCurTag] = useState("");
+  const [images, setImages] = useState<UploadImageResDto[]>([]);
   const [tags, setTags] = useState<string[]>([]);
   const [regionId, setRegionId] = useState("9575b497-f677-4b4a-94fa-1de79763e035");
   const [regions, setRegions] = useState<RegionDto[]>([]);
@@ -56,6 +58,17 @@ export default function MagazineCreate() {
       setRegions(data);
     });
   }, []);
+
+  const onUploadImage = (image: Blob, callback: any) => {
+    magazineService.uploadImage(image).then((data)=> {
+      if(data) {
+        console.log(data.id);
+        images.push(data);
+        setImages(images);
+        callback(data.url, 'image');
+      }
+    });
+  }
 
   return (
     <div>
@@ -91,6 +104,7 @@ export default function MagazineCreate() {
                     regionId,
                     userId: id,
                     language,
+                    imageUrlIds: images.map((image)=>image.id)
                   }).then((data)=> {
                     router.push(`/magazine/${data.id}`)
                   });
@@ -142,7 +156,7 @@ export default function MagazineCreate() {
             )}
           </div>
           <div className="h-[10px]" />
-          <WysiwygEditor editorRef={editorRef} initialValue={""} />
+          <WysiwygEditor editorRef={editorRef} initialValue={""} onUploadImage={onUploadImage} />
           <div className="h-[32px]" />
         </div>
       </div>
